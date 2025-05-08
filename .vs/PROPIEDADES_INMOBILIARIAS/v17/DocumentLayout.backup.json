@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|c:\\users\\deivy\\source\\repos\\propiedades_inmobiliarias\\propiedades_inmobiliarias\\repositories\\propiedadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|solutionrelative:propiedades_inmobiliarias\\repositories\\propiedadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|c:\\users\\deivy\\source\\repos\\propiedades_inmobiliarias\\propiedades_inmobiliarias\\repositories\\ipropiedadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|solutionrelative:propiedades_inmobiliarias\\repositories\\ipropiedadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|c:\\users\\deivy\\source\\repos\\propiedades_inmobiliarias\\propiedades_inmobiliarias\\conexiondb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|solutionrelative:propiedades_inmobiliarias\\conexiondb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|c:\\users\\deivy\\source\\repos\\propiedades_inmobiliarias\\propiedades_inmobiliarias\\models\\propiedad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|solutionrelative:propiedades_inmobiliarias\\models\\propiedad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|c:\\users\\deivy\\source\\repos\\propiedades_inmobiliarias\\propiedades_inmobiliarias\\forms\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|solutionrelative:propiedades_inmobiliarias\\forms\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|c:\\users\\deivy\\source\\repos\\propiedades_inmobiliarias\\propiedades_inmobiliarias\\forms\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7C5A2946-CE6E-4B77-88F0-B87774D362C0}|PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS.csproj|solutionrelative:propiedades_inmobiliarias\\forms\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PropiedadRepository.cs",
+              "DocumentMoniker": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Repositories\\PropiedadRepository.cs",
+              "RelativeDocumentMoniker": "PROPIEDADES_INMOBILIARIAS\\Repositories\\PropiedadRepository.cs",
+              "ToolTip": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Repositories\\PropiedadRepository.cs*",
+              "RelativeToolTip": "PROPIEDADES_INMOBILIARIAS\\Repositories\\PropiedadRepository.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:50:29.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IPropiedadRepository.cs",
+              "DocumentMoniker": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Repositories\\IPropiedadRepository.cs",
+              "RelativeDocumentMoniker": "PROPIEDADES_INMOBILIARIAS\\Repositories\\IPropiedadRepository.cs",
+              "ToolTip": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Repositories\\IPropiedadRepository.cs*",
+              "RelativeToolTip": "PROPIEDADES_INMOBILIARIAS\\Repositories\\IPropiedadRepository.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:50:09.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Propiedad.cs",
+              "DocumentMoniker": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Models\\Propiedad.cs",
+              "RelativeDocumentMoniker": "PROPIEDADES_INMOBILIARIAS\\Models\\Propiedad.cs",
+              "ToolTip": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Models\\Propiedad.cs*",
+              "RelativeToolTip": "PROPIEDADES_INMOBILIARIAS\\Models\\Propiedad.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:49:39.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ConexionDB.cs",
+              "DocumentMoniker": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\ConexionDB.cs",
+              "RelativeDocumentMoniker": "PROPIEDADES_INMOBILIARIAS\\ConexionDB.cs",
+              "ToolTip": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\ConexionDB.cs*",
+              "RelativeToolTip": "PROPIEDADES_INMOBILIARIAS\\ConexionDB.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:48:50.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginForm.cs",
+              "DocumentMoniker": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs",
+              "RelativeDocumentMoniker": "PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs*",
+              "RelativeToolTip": "PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:47:31.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginForm.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs",
+              "RelativeDocumentMoniker": "PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\deivy\\source\\repos\\PROPIEDADES_INMOBILIARIAS\\PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs [Dise\u00F1o]*",
+              "RelativeToolTip": "PROPIEDADES_INMOBILIARIAS\\Forms\\LoginForm.cs [Dise\u00F1o]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:26:29.093Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
