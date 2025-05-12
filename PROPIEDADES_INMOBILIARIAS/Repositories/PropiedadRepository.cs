@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using PROPIEDADES_INMOBILIARIAS.Models;
 using System.Collections.Generic;
+using System;
 
 namespace PROPIEDADES_INMOBILIARIAS.Repositories
 {
@@ -23,14 +24,15 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Direccion", propiedad.Direccion);
-                cmd.Parameters.AddWithValue("@Tipo", (int)propiedad.Tipo);
+                cmd.Parameters.AddWithValue("@Tipo", propiedad.Tipo.ToString()); 
                 cmd.Parameters.AddWithValue("@Superficie", propiedad.Superficie);
                 cmd.Parameters.AddWithValue("@Precio", propiedad.Precio);
-                cmd.Parameters.AddWithValue("@Estado", (int)propiedad.Estado);
+                cmd.Parameters.AddWithValue("@Estado", propiedad.Estado.ToString());
                 cmd.Parameters.AddWithValue("@AgenteID", propiedad.AgenteID);
                 cmd.ExecuteNonQuery();
             }
         }
+
 
         public void Update(Propiedad propiedad)
         {
@@ -96,18 +98,45 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                     {
                         propiedades.Add(new Propiedad
                         {
-                            PropiedadID = (int)reader["PropiedadID"],
+                            PropiedadID = Convert.ToInt32(reader["PropiedadID"]),
                             Direccion = reader["Direccion"].ToString(),
-                            Tipo = (TipoPropiedad)reader["Tipo"],
-                            Superficie = (double)reader["Superficie"],
-                            Precio = (decimal)reader["Precio"],
-                            Estado = (EstadoPropiedad)reader["Estado"],
-                            AgenteID = (int)reader["AgenteID"]
+                            Tipo = MapearTipo(reader["Tipo"].ToString()),
+                            Superficie = Convert.ToDouble(reader["Superficie"]),
+                            Precio = Convert.ToDecimal(reader["Precio"]),
+                            Estado = MapearEstado(reader["Estado"].ToString()),
+                            AgenteID = reader["AgenteID"] != DBNull.Value ? Convert.ToInt32(reader["AgenteID"]) : 0
                         });
+
                     }
                 }
             }
             return propiedades;
         }
+
+
+        private TipoPropiedad MapearTipo(string tipo)
+        {
+            if (tipo == "Apartamento")
+                return TipoPropiedad.Apartamento;
+            else if (tipo == "Casa")
+                return TipoPropiedad.Casa;
+            else if (tipo == "Oficina")
+                return TipoPropiedad.Oficina;
+            else
+                throw new ArgumentOutOfRangeException("Tipo de propiedad desconocido: " + tipo);
+        }
+        private EstadoPropiedad MapearEstado(string estado)
+        {
+            if (estado == "Disponible")
+                return EstadoPropiedad.Disponible;
+            else if (estado == "En proceso de venta")
+                return EstadoPropiedad.EnProcesoVenta;
+            else if (estado == "Vendida")
+                return EstadoPropiedad.Vendida;
+            else
+                throw new ArgumentOutOfRangeException("Estado de propiedad desconocido: " + estado);
+        }
+
+
     }
 }

@@ -78,6 +78,9 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             }
         }
 
+
+
+
         public IEnumerable<Cliente> GetAll()
         {
             var clientes = new List<Cliente>();

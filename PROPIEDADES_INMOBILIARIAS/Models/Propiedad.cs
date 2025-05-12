@@ -29,6 +29,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Models
 
         // ID del agente asignado (FK a la tabla Agentes)
         public int AgenteID { get; set; }
+
+
     }
 }
 

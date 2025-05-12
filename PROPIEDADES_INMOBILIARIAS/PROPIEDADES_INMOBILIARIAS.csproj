@@ -55,11 +55,47 @@
     <Compile Include="Factories\IVisitaFactory.cs" />
     <Compile Include="Factories\TransaccionFactory.cs" />
     <Compile Include="Factories\VisitaFactory.cs" />
+    <Compile Include="Forms\AdminDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminDashboard.Designer.cs">
+      <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AgentDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AgentDashboard.Designer.cs">
+      <DependentUpon>AgentDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ClientesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClientesForm.Designer.cs">
+      <DependentUpon>ClientesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageAgentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageAgentsForm.Designer.cs">
+      <DependentUpon>ManageAgentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManagePropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManagePropertiesForm.Designer.cs">
+      <DependentUpon>ManagePropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageVisitsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageVisitsForm.Designer.cs">
+      <DependentUpon>ManageVisitsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Agente.cs" />
     <Compile Include="Models\Cliente.cs" />
@@ -84,6 +120,27 @@
     <Compile Include="Repositories\VisitaRepository.cs" />
     <Compile Include="Strategies\IZonaStrategy.cs" />
     <Compile Include="Strategies\ZonaValidationStrategy.cs" />
+    <EmbeddedResource Include="Forms\AdminDashboard.resx">
+      <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AgentDashboard.resx">
+      <DependentUpon>AgentDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ClientesForm.resx">
+      <DependentUpon>ClientesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageAgentsForm.resx">
+      <DependentUpon>ManageAgentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManagePropertiesForm.resx">
+      <DependentUpon>ManagePropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageVisitsForm.resx">
+      <DependentUpon>ManageVisitsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
