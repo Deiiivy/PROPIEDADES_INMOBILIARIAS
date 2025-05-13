@@ -30,7 +30,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
         {
             InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cn"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["RealEstateDB"].ConnectionString;
             _connection = new SqlConnection(connectionString);
             _connection.Open();
             _transaction = _connection.BeginTransaction();

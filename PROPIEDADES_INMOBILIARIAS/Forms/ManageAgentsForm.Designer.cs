@@ -97,6 +97,7 @@
             this.btnGuardarAgente.TabIndex = 6;
             this.btnGuardarAgente.Text = "Guardar";
             this.btnGuardarAgente.UseVisualStyleBackColor = true;
+            this.btnGuardarAgente.Click += new System.EventHandler(this.btnGuardarAgente_Click);
             // 
             // btnActualizarAgente
             // 
@@ -106,6 +107,7 @@
             this.btnActualizarAgente.TabIndex = 7;
             this.btnActualizarAgente.Text = "Actualizar";
             this.btnActualizarAgente.UseVisualStyleBackColor = true;
+            this.btnActualizarAgente.Click += new System.EventHandler(this.btnActualizarAgente_Click);
             // 
             // btnEliminarAgente
             // 
@@ -115,6 +117,7 @@
             this.btnEliminarAgente.TabIndex = 8;
             this.btnEliminarAgente.Text = "Eliminar";
             this.btnEliminarAgente.UseVisualStyleBackColor = true;
+            this.btnEliminarAgente.Click += new System.EventHandler(this.btnEliminarAgente_Click);
             // 
             // dgvAgentes
             // 

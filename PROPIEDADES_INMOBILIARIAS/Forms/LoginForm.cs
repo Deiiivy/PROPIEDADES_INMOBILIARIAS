@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
     public partial class LoginForm : Form
@@ -28,33 +29,36 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT Rol FROM Usuarios WHERE Email = @Email AND PasswordHash = @Password";
+                string query = "SELECT UsuarioID, Rol FROM Usuarios WHERE Email = @Email AND PasswordHash = @Password";
                 var cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Email", username);
-                cmd.Parameters.AddWithValue("@Password", password);  // Aquí deshabilitamos el hash
+                cmd.Parameters.AddWithValue("@Password", password); // Sin hashing, como solicitaste
 
                 connection.Open();
-                var result = cmd.ExecuteScalar();
-
-                if (result != null)
+                using (var reader = cmd.ExecuteReader())
                 {
-                    string role = result.ToString();
-                    MessageBox.Show($"Bienvenido {role}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (reader.Read())
+                    {
+                        int usuarioId = reader.GetInt32(0);
+                        string role = reader.GetString(1);
 
-                    // Si es admin, abrir formulario admin; si es agente, abrir formulario de agente
-                    if (role == "Admin")
-                    {
-                        new AdminDashboard().Show();
+                        MessageBox.Show($"Bienvenido {role}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        if (role == "Admin")
+                        {
+                            new AdminDashboard().Show();
+                        }
+                        else if (role == "Agente")
+                        {
+                            new AgentDashboard(usuarioId).Show(); // 👈 Pasamos el ID del agente
+                        }
+
+                        this.Hide();
                     }
-                    else if (role == "Agente")
+                    else
                     {
-                        new AgentDashboard().Show();
+                        MessageBox.Show("Usuario o contraseña incorrectos", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Usuario o contraseña incorrectos", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

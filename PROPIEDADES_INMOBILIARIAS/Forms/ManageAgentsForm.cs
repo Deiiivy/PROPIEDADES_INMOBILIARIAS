@@ -23,20 +23,20 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             InitializeComponent();
             var connection = DatabaseConnection.Instance.GetConnection();
             _agenteRepository = new AgenteRepository(connection, null);
-        }
-
-        private void ManageAgentsForm_Load(object sender, EventArgs e)
-        {
-            CargarAgentes();
-        }
-
-        private void CargarAgentes()
-        {
-            dgvAgentes.DataSource = _agenteRepository.GetAll();
+            this.Load += ManageAgentsForm_Load;
+            dgvAgentes.SelectionChanged += dgvAgentes_SelectionChanged;
         }
 
         private void btnGuardarAgente_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                string.IsNullOrWhiteSpace(txtZona.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefono.Text))
+            {
+                MessageBox.Show("Todos los campos son obligatorios.");
+                return;
+            }
+
             var agente = new Agente
             {
                 Nombre = txtNombre.Text,
@@ -52,7 +52,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnActualizarAgente_Click(object sender, EventArgs e)
         {
-            if (dgvAgentes.SelectedRows.Count == 0) return;
+            if (dgvAgentes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un agente para actualizar.");
+                return;
+            }
 
             var agente = new Agente
             {
@@ -70,13 +74,38 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnEliminarAgente_Click(object sender, EventArgs e)
         {
-            if (dgvAgentes.SelectedRows.Count == 0) return;
+            if (dgvAgentes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un agente para eliminar.");
+                return;
+            }
 
             int id = Convert.ToInt32(dgvAgentes.SelectedRows[0].Cells["AgenteID"].Value);
             _agenteRepository.Delete(id);
             MessageBox.Show("Agente eliminado.");
             LimpiarCampos();
             CargarAgentes();
+        }
+
+        private void ManageAgentsForm_Load(object sender, EventArgs e)
+        {
+            CargarAgentes();
+        }
+
+        private void dgvAgentes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvAgentes.SelectedRows.Count == 0) return;
+
+            var row = dgvAgentes.SelectedRows[0];
+            txtNombre.Text = row.Cells["Nombre"].Value.ToString();
+            txtZona.Text = row.Cells["ZonaEspecializacion"].Value.ToString();
+            txtTelefono.Text = row.Cells["Telefono"].Value.ToString();
+        }
+
+        private void CargarAgentes()
+        {
+            dgvAgentes.DataSource = _agenteRepository.GetAll();
+            dgvAgentes.ClearSelection();
         }
 
         private void LimpiarCampos()
