@@ -33,7 +33,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtClienteID = new System.Windows.Forms.TextBox();
             this.txtPropiedadID = new System.Windows.Forms.TextBox();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.dtpHora = new System.Windows.Forms.DateTimePicker();
             this.btnGuardarVisita = new System.Windows.Forms.Button();
             this.btnActualizarVisita = new System.Windows.Forms.Button();
             this.btnEliminarVisita = new System.Windows.Forms.Button();
@@ -41,7 +41,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtAgenteID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.dtpHora = new System.Windows.Forms.DateTimePicker();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisitas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,14 +86,14 @@
             this.txtPropiedadID.Size = new System.Drawing.Size(200, 20);
             this.txtPropiedadID.TabIndex = 5;
             // 
-            // dtpFecha
+            // dtpHora
             // 
-            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpFecha.Location = new System.Drawing.Point(188, 210);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.ShowUpDown = true;
-            this.dtpFecha.Size = new System.Drawing.Size(200, 20);
-            this.dtpFecha.TabIndex = 7;
+            this.dtpHora.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpHora.Location = new System.Drawing.Point(188, 261);
+            this.dtpHora.Name = "dtpHora";
+            this.dtpHora.ShowUpDown = true;
+            this.dtpHora.Size = new System.Drawing.Size(200, 20);
+            this.dtpHora.TabIndex = 7;
             // 
             // btnGuardarVisita
             // 
@@ -103,6 +103,7 @@
             this.btnGuardarVisita.TabIndex = 8;
             this.btnGuardarVisita.Text = "Guardar";
             this.btnGuardarVisita.UseVisualStyleBackColor = true;
+            this.btnGuardarVisita.Click += new System.EventHandler(this.btnGuardarVisita_Click);
             // 
             // btnActualizarVisita
             // 
@@ -112,6 +113,7 @@
             this.btnActualizarVisita.TabIndex = 9;
             this.btnActualizarVisita.Text = "Actualizar";
             this.btnActualizarVisita.UseVisualStyleBackColor = true;
+            this.btnActualizarVisita.Click += new System.EventHandler(this.btnActualizarVisita_Click);
             // 
             // btnEliminarVisita
             // 
@@ -121,6 +123,7 @@
             this.btnEliminarVisita.TabIndex = 10;
             this.btnEliminarVisita.Text = "Eliminar";
             this.btnEliminarVisita.UseVisualStyleBackColor = true;
+            this.btnEliminarVisita.Click += new System.EventHandler(this.btnEliminarVisita_Click);
             // 
             // dgvVisitas
             // 
@@ -158,19 +161,19 @@
             this.label4.TabIndex = 14;
             this.label4.Text = "Hora";
             // 
-            // dtpHora
+            // dtpFecha
             // 
-            this.dtpHora.Location = new System.Drawing.Point(188, 261);
-            this.dtpHora.Name = "dtpHora";
-            this.dtpHora.Size = new System.Drawing.Size(200, 20);
-            this.dtpHora.TabIndex = 15;
+            this.dtpFecha.Location = new System.Drawing.Point(188, 210);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(200, 20);
+            this.dtpFecha.TabIndex = 15;
             // 
             // ManageVisitsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dtpHora);
+            this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtAgenteID);
             this.Controls.Add(this.label5);
@@ -178,7 +181,7 @@
             this.Controls.Add(this.btnEliminarVisita);
             this.Controls.Add(this.btnActualizarVisita);
             this.Controls.Add(this.btnGuardarVisita);
-            this.Controls.Add(this.dtpFecha);
+            this.Controls.Add(this.dtpHora);
             this.Controls.Add(this.txtPropiedadID);
             this.Controls.Add(this.txtClienteID);
             this.Controls.Add(this.label3);
@@ -199,7 +202,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtClienteID;
         private System.Windows.Forms.TextBox txtPropiedadID;
-        private System.Windows.Forms.DateTimePicker dtpFecha;
+        private System.Windows.Forms.DateTimePicker dtpHora;
         private System.Windows.Forms.Button btnGuardarVisita;
         private System.Windows.Forms.Button btnActualizarVisita;
         private System.Windows.Forms.Button btnEliminarVisita;
@@ -207,6 +210,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtAgenteID;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dtpHora;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
     }
 }
