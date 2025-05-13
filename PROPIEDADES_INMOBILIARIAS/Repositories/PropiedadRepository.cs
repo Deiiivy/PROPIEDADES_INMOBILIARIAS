@@ -137,6 +137,33 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                 throw new ArgumentOutOfRangeException("Estado de propiedad desconocido: " + estado);
         }
 
+        public IEnumerable<Propiedad> GetByAgenteId(int agenteId)
+        {
+            var propiedades = new List<Propiedad>();
+            using (var cmd = new SqlCommand("SELECT * FROM Propiedades WHERE AgenteID = @AgenteID", _connection, _transaction))
+            {
+                cmd.Parameters.AddWithValue("@AgenteID", agenteId);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        propiedades.Add(new Propiedad
+                        {
+                            PropiedadID = Convert.ToInt32(reader["PropiedadID"]),
+                            Direccion = reader["Direccion"].ToString(),
+                            Tipo = MapearTipo(reader["Tipo"].ToString()),
+                            Superficie = Convert.ToDouble(reader["Superficie"]),
+                            Precio = Convert.ToDecimal(reader["Precio"]),
+                            Estado = MapearEstado(reader["Estado"].ToString()),
+                            AgenteID = reader["AgenteID"] != DBNull.Value ? Convert.ToInt32(reader["AgenteID"]) : 0
+                        });
+                    }
+                }
+            }
+            return propiedades;
+        }
+
+
 
     }
 }

@@ -30,7 +30,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
         {
             InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cn"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["RealEstateDB"].ConnectionString;
             _connection = new SqlConnection(connectionString);
             _connection.Open();
             _transaction = _connection.BeginTransaction();
@@ -60,6 +60,23 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             dgvVisitas.DataSource = visitas;
         }
 
+      
+
+
+
+        private void dgvVisitas_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvVisitas.SelectedRows.Count == 0) return;
+
+            var row = dgvVisitas.SelectedRows[0];
+            txtPropiedadID.Text = row.Cells["PropiedadID"].Value.ToString();
+            txtClienteID.Text = row.Cells["ClienteID"].Value.ToString();
+            txtAgenteID.Text = row.Cells["AgenteID"].Value.ToString();
+            dtpHora.Value = (DateTime)row.Cells["Fecha"].Value;
+            dtpFecha.Value = DateTime.Today.Add((TimeSpan)row.Cells["Hora"].Value);
+        }
+
+      
         private void btnGuardarVisita_Click(object sender, EventArgs e)
         {
             var visita = new Visita
@@ -67,8 +84,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 PropiedadID = int.Parse(txtPropiedadID.Text),
                 ClienteID = int.Parse(txtClienteID.Text),
                 AgenteID = int.Parse(txtAgenteID.Text),
-                Fecha = dtpFecha.Value.Date,
-                Hora = dtpHora.Value.TimeOfDay
+                Fecha = dtpHora.Value.Date,
+                Hora = dtpFecha.Value.TimeOfDay
             };
 
             _visitaRepository.Add(visita);
@@ -87,8 +104,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 PropiedadID = int.Parse(txtPropiedadID.Text),
                 ClienteID = int.Parse(txtClienteID.Text),
                 AgenteID = int.Parse(txtAgenteID.Text),
-                Fecha = dtpFecha.Value.Date,
-                Hora = dtpHora.Value.TimeOfDay
+                Fecha = dtpHora.Value.Date,
+                Hora = dtpFecha.Value.TimeOfDay
             };
 
             _visitaRepository.Update(visita);
@@ -108,25 +125,14 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             CargarVisitas();
         }
 
-        private void dgvVisitas_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvVisitas.SelectedRows.Count == 0) return;
-
-            var row = dgvVisitas.SelectedRows[0];
-            txtPropiedadID.Text = row.Cells["PropiedadID"].Value.ToString();
-            txtClienteID.Text = row.Cells["ClienteID"].Value.ToString();
-            txtAgenteID.Text = row.Cells["AgenteID"].Value.ToString();
-            dtpFecha.Value = (DateTime)row.Cells["Fecha"].Value;
-            dtpHora.Value = DateTime.Today.Add((TimeSpan)row.Cells["Hora"].Value);
-        }
-
         private void LimpiarCampos()
         {
             txtClienteID.Clear();
             txtPropiedadID.Clear();
             txtAgenteID.Clear();
-            dtpFecha.Value = DateTime.Now;
             dtpHora.Value = DateTime.Now;
+            dtpFecha.Value = DateTime.Now;
         }
+
     }
 }

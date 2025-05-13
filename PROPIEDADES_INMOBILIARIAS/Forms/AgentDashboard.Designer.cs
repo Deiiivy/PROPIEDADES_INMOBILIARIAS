@@ -28,35 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnManageOwnProperties = new System.Windows.Forms.Button();
+            this.btnManageVisits = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btnManageOwnProperties
             // 
-            this.button1.Location = new System.Drawing.Point(90, 104);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Gestionar Propiedades";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnManageOwnProperties.Location = new System.Drawing.Point(90, 104);
+            this.btnManageOwnProperties.Name = "btnManageOwnProperties";
+            this.btnManageOwnProperties.Size = new System.Drawing.Size(152, 23);
+            this.btnManageOwnProperties.TabIndex = 0;
+            this.btnManageOwnProperties.Text = "Gestionar Propiedades";
+            this.btnManageOwnProperties.UseVisualStyleBackColor = true;
+            this.btnManageOwnProperties.Click += new System.EventHandler(this.btnManageOwnProperties_Click);
             // 
-            // button2
+            // btnManageVisits
             // 
-            this.button2.Location = new System.Drawing.Point(248, 103);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Gestionar Visitas";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnManageVisits.Location = new System.Drawing.Point(265, 104);
+            this.btnManageVisits.Name = "btnManageVisits";
+            this.btnManageVisits.Size = new System.Drawing.Size(182, 23);
+            this.btnManageVisits.TabIndex = 1;
+            this.btnManageVisits.Text = "Gestionar Visitas";
+            this.btnManageVisits.UseVisualStyleBackColor = true;
+            this.btnManageVisits.Click += new System.EventHandler(this.btnManageVisits_Click);
             // 
             // AgentDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnManageVisits);
+            this.Controls.Add(this.btnManageOwnProperties);
             this.Name = "AgentDashboard";
             this.Text = "AgentDashboard";
             this.ResumeLayout(false);
@@ -65,7 +67,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnManageOwnProperties;
+        private System.Windows.Forms.Button btnManageVisits;
     }
 }

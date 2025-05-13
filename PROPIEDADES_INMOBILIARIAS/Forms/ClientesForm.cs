@@ -23,10 +23,31 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             InitializeComponent();
             _connection = DatabaseConnection.Instance.GetConnection();
             _clienteRepository = new ClienteRepository(_connection, null);
+            this.Load += ClientesForm_Load;
+            dgvClientes.SelectionChanged += dgvClientes_SelectionChanged;
+        }
+
+        private void ClientesForm_Load(object sender, EventArgs e)
+        {
+            cmbInteres.Items.Clear();
+            cmbInteres.Items.Add("Compra");
+            cmbInteres.Items.Add("Renta");
+            cmbInteres.SelectedIndex = -1;
+
+            CargarClientes();
         }
 
         private void btnGuardarCliente_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefono.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                cmbInteres.SelectedItem == null)
+            {
+                MessageBox.Show("Complete todos los campos antes de guardar.");
+                return;
+            }
+
             var cliente = new Cliente
             {
                 Nombre = txtNombre.Text,
@@ -43,6 +64,12 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnActualizarCliente_Click(object sender, EventArgs e)
         {
+            if (dgvClientes.SelectedRows.Count == 0 || cmbInteres.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un cliente y un tipo de interés válido.");
+                return;
+            }
+
             var cliente = new Cliente
             {
                 ClienteID = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ClienteID"].Value),
@@ -60,11 +87,30 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnEliminarCliente_Click(object sender, EventArgs e)
         {
+            if (dgvClientes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un cliente para eliminar.");
+                return;
+            }
+
             int clienteId = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ClienteID"].Value);
             _clienteRepository.Delete(clienteId);
             MessageBox.Show("Cliente eliminado.");
             LimpiarCampos();
             CargarClientes();
+        }
+
+        private void dgvClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvClientes.SelectedRows.Count == 0) return;
+
+            var row = dgvClientes.SelectedRows[0];
+            txtNombre.Text = row.Cells["Nombre"].Value.ToString();
+            txtTelefono.Text = row.Cells["Telefono"].Value.ToString();
+            txtEmail.Text = row.Cells["Email"].Value.ToString();
+
+            string interes = row.Cells["Interes"].Value.ToString();
+            cmbInteres.SelectedItem = cmbInteres.Items.Contains(interes) ? interes : null;
         }
 
         private void LimpiarCampos()
@@ -77,18 +123,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void CargarClientes()
         {
-            var clientes = _clienteRepository.GetAll();
-            dgvClientes.DataSource = clientes;
-        }
-
-        private void ClientesForm_Load(object sender, EventArgs e)
-        {
-            cmbInteres.Items.Add("Compra");
-            cmbInteres.Items.Add("Renta");
-            cmbInteres.SelectedIndex = -1;
-
-            CargarClientes();
+            dgvClientes.DataSource = _clienteRepository.GetAll();
+            dgvClientes.ClearSelection();
         }
     }
 }
-
