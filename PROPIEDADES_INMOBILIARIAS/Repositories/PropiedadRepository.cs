@@ -11,7 +11,6 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
         private readonly SqlConnection _connection;
         private readonly SqlTransaction _transaction;
 
-        // Constructor con 2 parámetros (requerido por Unit of Work)
         public PropiedadRepository(SqlConnection connection, SqlTransaction transaction)
         {
             _connection = connection;
@@ -24,7 +23,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Direccion", propiedad.Direccion);
-                cmd.Parameters.AddWithValue("@Tipo", propiedad.Tipo.ToString()); 
+                cmd.Parameters.AddWithValue("@Tipo", propiedad.Tipo.ToString());
                 cmd.Parameters.AddWithValue("@Superficie", propiedad.Superficie);
                 cmd.Parameters.AddWithValue("@Precio", propiedad.Precio);
                 cmd.Parameters.AddWithValue("@Estado", propiedad.Estado.ToString());
@@ -33,7 +32,6 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             }
         }
 
-
         public void Update(Propiedad propiedad)
         {
             using (var cmd = new SqlCommand("SP_ActualizarPropiedad", _connection, _transaction))
@@ -41,10 +39,10 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@PropiedadID", propiedad.PropiedadID);
                 cmd.Parameters.AddWithValue("@Direccion", propiedad.Direccion);
-                cmd.Parameters.AddWithValue("@Tipo", (int)propiedad.Tipo);
+                cmd.Parameters.AddWithValue("@Tipo", propiedad.Tipo.ToString());
                 cmd.Parameters.AddWithValue("@Superficie", propiedad.Superficie);
                 cmd.Parameters.AddWithValue("@Precio", propiedad.Precio);
-                cmd.Parameters.AddWithValue("@Estado", (int)propiedad.Estado);
+                cmd.Parameters.AddWithValue("@Estado", propiedad.Estado.ToString());
                 cmd.ExecuteNonQuery();
             }
         }
@@ -74,11 +72,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                         {
                             PropiedadID = (int)reader["PropiedadID"],
                             Direccion = reader["Direccion"].ToString(),
-                            Tipo = (TipoPropiedad)reader["Tipo"],
-                            Superficie = (double)reader["Superficie"],
-                            Precio = (decimal)reader["Precio"],
-                            Estado = (EstadoPropiedad)reader["Estado"],
-                            AgenteID = (int)reader["AgenteID"]
+                            Tipo = MapearTipo(reader["Tipo"].ToString()),
+                            Superficie = Convert.ToDouble(reader["Superficie"]),
+                            Precio = Convert.ToDecimal(reader["Precio"]),
+                            Estado = MapearEstado(reader["Estado"].ToString()),
+                            AgenteID = reader["AgenteID"] != DBNull.Value ? Convert.ToInt32(reader["AgenteID"]) : 0
                         };
                     }
                     return null;
@@ -106,35 +104,40 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                             Estado = MapearEstado(reader["Estado"].ToString()),
                             AgenteID = reader["AgenteID"] != DBNull.Value ? Convert.ToInt32(reader["AgenteID"]) : 0
                         });
-
                     }
                 }
             }
             return propiedades;
         }
 
-
         private TipoPropiedad MapearTipo(string tipo)
         {
-            if (tipo == "Apartamento")
-                return TipoPropiedad.Apartamento;
-            else if (tipo == "Casa")
-                return TipoPropiedad.Casa;
-            else if (tipo == "Oficina")
-                return TipoPropiedad.Oficina;
-            else
-                throw new ArgumentOutOfRangeException("Tipo de propiedad desconocido: " + tipo);
+            switch (tipo)
+            {
+                case "Apartamento":
+                    return TipoPropiedad.Apartamento;
+                case "Casa":
+                    return TipoPropiedad.Casa;
+                case "Oficina":
+                    return TipoPropiedad.Oficina;
+                default:
+                    throw new ArgumentOutOfRangeException("Tipo de propiedad desconocido: " + tipo);
+            }
         }
+
         private EstadoPropiedad MapearEstado(string estado)
         {
-            if (estado == "Disponible")
-                return EstadoPropiedad.Disponible;
-            else if (estado == "En proceso de venta")
-                return EstadoPropiedad.EnProcesoVenta;
-            else if (estado == "Vendida")
-                return EstadoPropiedad.Vendida;
-            else
-                throw new ArgumentOutOfRangeException("Estado de propiedad desconocido: " + estado);
+            switch (estado)
+            {
+                case "Disponible":
+                    return EstadoPropiedad.Disponible;
+                case "En proceso de venta":
+                    return EstadoPropiedad.EnProcesoVenta;
+                case "Vendida":
+                    return EstadoPropiedad.Vendida;
+                default:
+                    throw new ArgumentOutOfRangeException("Estado de propiedad desconocido: " + estado);
+            }
         }
 
         public IEnumerable<Propiedad> GetByAgenteId(int agenteId)
@@ -163,7 +166,30 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             return propiedades;
         }
 
-
-
+        public IEnumerable<Propiedad> GetDisponibles()
+        {
+            var propiedades = new List<Propiedad>();
+            using (var cmd = new SqlCommand("SP_ObtenerPropiedadesDisponibles", _connection, _transaction))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        propiedades.Add(new Propiedad
+                        {
+                            PropiedadID = Convert.ToInt32(reader["PropiedadID"]),
+                            Direccion = reader["Direccion"].ToString(),
+                            Tipo = MapearTipo(reader["Tipo"].ToString()),
+                            Superficie = Convert.ToDouble(reader["Superficie"]),
+                            Precio = Convert.ToDecimal(reader["Precio"]),
+                            Estado = MapearEstado(reader["Estado"].ToString()),
+                            AgenteID = reader["AgenteID"] != DBNull.Value ? Convert.ToInt32(reader["AgenteID"]) : 0
+                        });
+                    }
+                }
+            }
+            return propiedades;
+        }
     }
 }

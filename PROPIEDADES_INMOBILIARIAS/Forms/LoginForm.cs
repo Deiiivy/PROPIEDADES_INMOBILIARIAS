@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PROPIEDADES_INMOBILIARIAS.Repositories.PermisoDecorators;
+using PROPIEDADES_INMOBILIARIAS.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -9,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
@@ -22,43 +23,55 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Text;
+            string email = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Por favor ingrese sus credenciales.");
+                return;
+            }
 
             string connectionString = ConfigurationManager.ConnectionStrings["RealEstateDB"].ConnectionString;
 
-            using (var connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT UsuarioID, Rol FROM Usuarios WHERE Email = @Email AND PasswordHash = @Password";
-                var cmd = new SqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@Email", username);
-                cmd.Parameters.AddWithValue("@Password", password); // Sin hashing, como solicitaste
-
                 connection.Open();
-                using (var reader = cmd.ExecuteReader())
+                var authRepo = new AuthRepository(connection);
+                var usuario = authRepo.Login(email, password);
+
+                if (usuario != null)
                 {
-                    if (reader.Read())
+                   
+                    UserSession.UsuarioID = usuario.UsuarioID;
+                    UserSession.Rol = usuario.Rol;
+                    UserSession.AgenteID = usuario.AgenteID;
+                    UserSession.ClienteID = usuario.ClienteID;
+
+                    MessageBox.Show($"Bienvenido {usuario.Rol}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                   
+                    switch (usuario.Rol.ToLower())
                     {
-                        int usuarioId = reader.GetInt32(0);
-                        string role = reader.GetString(1);
-
-                        MessageBox.Show($"Bienvenido {role}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        if (role == "Admin")
-                        {
+                        case "admin":
                             new AdminDashboard().Show();
-                        }
-                        else if (role == "Agente")
-                        {
-                            new AgentDashboard(usuarioId).Show(); // 👈 Pasamos el ID del agente
-                        }
+                            break;
+                        case "agente":
+                            new AgentDashboard(usuario.UsuarioID).Show();
+                            break;
+                        case "cliente":
+                            new ClienteDashboard().Show();
+                            break;
+                        default:
+                            MessageBox.Show("Rol no reconocido.");
+                            return;
+                    }
 
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Usuario o contraseña incorrectos", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

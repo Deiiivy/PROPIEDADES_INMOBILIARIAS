@@ -12,8 +12,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Models
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
-        public string Rol { get; set; } // Admin, Agente, Cliente
-        public int? AgenteID { get; set; } // Solo para agentes
-        public int? ClienteID { get; set; } // Solo para clientes
+        public string Rol { get; set; }
+        public int? AgenteID { get; set; } 
+        public int? ClienteID { get; set; } 
     }
 }

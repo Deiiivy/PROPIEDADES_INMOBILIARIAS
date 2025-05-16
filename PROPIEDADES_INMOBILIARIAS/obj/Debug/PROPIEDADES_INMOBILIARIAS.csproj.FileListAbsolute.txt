@@ -29,3 +29,4 @@ C:\Users\deivy\source\repos\PROPIEDADES_INMOBILIARIAS\PROPIEDADES_INMOBILIARIAS\
 C:\Users\deivy\source\repos\PROPIEDADES_INMOBILIARIAS\PROPIEDADES_INMOBILIARIAS\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\deivy\source\repos\PROPIEDADES_INMOBILIARIAS\PROPIEDADES_INMOBILIARIAS\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\deivy\source\repos\PROPIEDADES_INMOBILIARIAS\PROPIEDADES_INMOBILIARIAS\obj\Debug\PROPIEDA.22B0C539.Up2Date
+C:\Users\deivy\source\repos\PROPIEDADES_INMOBILIARIAS\PROPIEDADES_INMOBILIARIAS\obj\Debug\PROPIEDADES_INMOBILIARIAS.Forms.ClienteDashboard.resources

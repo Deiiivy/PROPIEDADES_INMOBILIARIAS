@@ -21,7 +21,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             _connection = new SqlConnection(connectionString);
         }
 
-        // Propiedad estática - NOMBRE CORRECTO: Instance (en inglés)
+      
         public static DatabaseConnection Instance
         {
             get

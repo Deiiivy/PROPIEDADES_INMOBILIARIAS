@@ -23,12 +23,12 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories.PermisoDecorators
 
         public void Add(Cliente entity)
         {
-            _repo.Add(entity); // podemos  agregar validación aquí si aplica
+            _repo.Add(entity);
         }
 
         public void Delete(int id)
         {
-            _repo.Delete(id); // Aqui podemos restringir según rol si deseas
+            _repo.Delete(id); 
         }
 
         public Cliente GetById(int id)

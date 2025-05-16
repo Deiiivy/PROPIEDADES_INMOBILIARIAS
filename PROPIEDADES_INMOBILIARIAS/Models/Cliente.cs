@@ -8,10 +8,10 @@ namespace PROPIEDADES_INMOBILIARIAS.Models
 {
     public class Cliente
     {
-        public int ClienteID { get; set; } // Identificador único
-        public string Nombre { get; set; }  // Nombre completo
+        public int ClienteID { get; set; } 
+        public string Nombre { get; set; } 
         public string Telefono { get; set; }
         public string Email { get; set; }
-        public string Interes { get; set; } // "Compra" o "Renta"
+        public string Interes { get; set; } 
     }
 }
