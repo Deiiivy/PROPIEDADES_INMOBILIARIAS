@@ -10,7 +10,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Models
     {
         public int AgenteID { get; set; }
         public string Nombre { get; set; }
-        public string ZonaEspecializacion { get; set; } // Ej: "Norte", "Centro"
+        public string ZonaEspecializacion { get; set; } 
         public string Telefono { get; set; }
     }
 }

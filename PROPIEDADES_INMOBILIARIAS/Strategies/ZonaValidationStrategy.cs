@@ -10,7 +10,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Strategies
     {
         public bool ValidarZonaAgente(string zonaPropiedad, string zonaAgente)
         {
-            // Comparación insensible a mayúsculas y minúsculas
+         
             return zonaPropiedad.Equals(zonaAgente, StringComparison.OrdinalIgnoreCase);
         }
     }
