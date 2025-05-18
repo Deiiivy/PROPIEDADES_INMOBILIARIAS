@@ -38,7 +38,6 @@ La aplicación gestiona entidades clave como **Clientes, Agentes, Administradore
   - Funcionalidades:
     - Ver propiedades asignadas
     - Gestionar visitas
-    - Registrar transacciones
 
 - **Cliente**
   - Correo: `ana@mail.com`
