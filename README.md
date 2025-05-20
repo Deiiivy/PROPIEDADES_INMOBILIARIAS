@@ -2,7 +2,7 @@
 
 ## 📌 Propósito
 
-Este proyecto tiene como objetivo desarrollar una aplicación de gestión de propiedades inmobiliarias aplicando buenas prácticas de programación. Se implementan patrones de diseño como **Repository**, **Singleton** y **Factory**, junto con principios **SOLID**, para garantizar un código mantenible, escalable y de alta calidad.
+Este proyecto tiene como objetivo desarrollar una aplicación de gestión de propiedades inmobiliarias aplicando buenas prácticas de programación. Se implementan patrones de diseño como **Repository**, **Singleton**. junto con principios **SOLID**, para garantizar un código mantenible, escalable y de alta calidad.
 
 La aplicación gestiona entidades clave como **Clientes, Agentes, Administradores** y **Propiedades**, permitiendo operaciones como registro, asignación, programación de visitas y seguimiento de transacciones.
 
