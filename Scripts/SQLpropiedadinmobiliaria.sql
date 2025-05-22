@@ -598,12 +598,3 @@ INSERT INTO Usuarios (Nombre, Email, PasswordHash, Rol, AgenteID, ClienteID) VAL
 ('Ana Martínez', 'ana@mail.com', 'cliente123', 'Cliente', NULL, 1);
 GO;
 
-SELECT COLUMN_NAME, COLUMN_DEFAULT
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Propiedades' AND COLUMN_NAME = 'Estado';
-GO;
-
-
-SELECT * FROM Clientes;
-
-SELECT * FROM Propiedades;
