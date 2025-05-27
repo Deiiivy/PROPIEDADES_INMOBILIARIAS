@@ -87,6 +87,9 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
         public IEnumerable<Propiedad> GetAll()
         {
             var propiedades = new List<Propiedad>();
+            if (_connection.State != ConnectionState.Open)
+                _connection.Open();
+
             using (var cmd = new SqlCommand("SP_ObtenerTodasPropiedades", _connection, _transaction))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -107,8 +110,10 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                     }
                 }
             }
+
             return propiedades;
         }
+
 
         private TipoPropiedad MapearTipo(string tipo)
         {

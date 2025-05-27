@@ -19,7 +19,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void AdminDashboard_Load(object sender, EventArgs e)
         {
-            // Aquí puedes cargar datos específicos si es necesario
+            
         }
 
 

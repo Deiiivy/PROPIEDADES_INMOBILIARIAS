@@ -24,9 +24,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             InitializeComponent();
             _repo = new PropiedadRepository(DatabaseConnection.Instance.GetConnection(), null);
             _agenteId = agenteId;
+            this.Shown += ManagePropertiesForm_Shown;
         }
 
-        private void ManagePropertiesForm_Load(object sender, EventArgs e)
+
+        private void ManagePropertiesForm_Shown(object sender, EventArgs e)
         {
             cmbTipo.DataSource = Enum.GetValues(typeof(TipoPropiedad));
             cmbEstado.DataSource = Enum.GetValues(typeof(EstadoPropiedad));
@@ -35,16 +37,20 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             CargarPropiedades();
         }
 
+
         private void CargarPropiedades()
         {
             dgvPropiedades.DataSource = null;
+
             var lista = _agenteId.HasValue
                 ? _repo.GetByAgenteId(_agenteId.Value).ToList()
                 : _repo.GetAll().ToList();
 
+
             dgvPropiedades.AutoGenerateColumns = true;
             dgvPropiedades.DataSource = lista;
         }
+
 
         private void dgvPropiedades_SelectionChanged(object sender, EventArgs e)
         {
