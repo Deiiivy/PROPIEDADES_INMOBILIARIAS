@@ -33,8 +33,17 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
             this.FormClosing += (s, e) =>
             {
-                _transaction?.Commit();
-                _connection?.Close();
+                try
+                {
+                    _transaction?.Commit();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    _connection?.Close();
+                }
             };
         }
 
@@ -55,10 +64,6 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             dgvVisitas.DataSource = visitas;
         }
 
-      
-
-
-
         private void dgvVisitas_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvVisitas.SelectedRows.Count == 0) return;
@@ -67,57 +72,167 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             txtPropiedadID.Text = row.Cells["PropiedadID"].Value.ToString();
             txtClienteID.Text = row.Cells["ClienteID"].Value.ToString();
             txtAgenteID.Text = row.Cells["AgenteID"].Value.ToString();
-            dtpHora.Value = (DateTime)row.Cells["Fecha"].Value;
-            dtpFecha.Value = DateTime.Today.Add((TimeSpan)row.Cells["Hora"].Value);
+
+            DateTime fecha = (DateTime)row.Cells["Fecha"].Value;
+            TimeSpan hora = (TimeSpan)row.Cells["Hora"].Value;
+
+            dtpFecha.Value = fecha.Date;             // Control fecha (solo fecha)
+            dtpHora.Value = DateTime.Today.Add(hora); // Control hora (solo hora)
         }
 
-      
+        private bool ValidarVisita(out string errorMsg)
+        {
+            errorMsg = "";
+
+            if (string.IsNullOrWhiteSpace(txtClienteID.Text) ||
+                string.IsNullOrWhiteSpace(txtPropiedadID.Text) ||
+                string.IsNullOrWhiteSpace(txtAgenteID.Text))
+            {
+                errorMsg = "Todos los campos de ID deben estar completos.";
+                return false;
+            }
+
+            if (!int.TryParse(txtClienteID.Text, out int clienteId) ||
+                !int.TryParse(txtPropiedadID.Text, out int propiedadId) ||
+                !int.TryParse(txtAgenteID.Text, out int agenteId))
+            {
+                errorMsg = "Los campos de ID deben ser números válidos.";
+                return false;
+            }
+
+            DateTime fecha = dtpFecha.Value.Date;
+            TimeSpan hora = dtpHora.Value.TimeOfDay;
+            DateTime fechaHoraVisita = fecha.Add(hora);
+
+            DateTime ahora = DateTime.Now;
+            ahora = ahora.AddSeconds(-ahora.Second).AddMilliseconds(-ahora.Millisecond);
+
+            if (fechaHoraVisita < ahora)
+            {
+                errorMsg = "La fecha y hora de la visita no puede ser pasada.";
+                return false;
+            }
+
+            var visitas = _visitaRepository.GetAll().ToList();
+            bool existeDuplicado = visitas.Any(v =>
+                v.ClienteID == clienteId &&
+                v.PropiedadID == propiedadId &&
+                v.Fecha == fecha &&
+                v.Hora == hora &&
+                (dgvVisitas.SelectedRows.Count == 0 || v.VisitaID != Convert.ToInt32(dgvVisitas.SelectedRows[0].Cells["VisitaID"].Value))
+            );
+
+            if (existeDuplicado)
+            {
+                errorMsg = "Ya existe una visita agendada con los mismos datos.";
+                return false;
+            }
+
+            return true;
+        }
+
         private void btnGuardarVisita_Click(object sender, EventArgs e)
         {
-            var visita = new Visita
+            try
             {
-                PropiedadID = int.Parse(txtPropiedadID.Text),
-                ClienteID = int.Parse(txtClienteID.Text),
-                AgenteID = int.Parse(txtAgenteID.Text),
-                Fecha = dtpHora.Value.Date,
-                Hora = dtpFecha.Value.TimeOfDay
-            };
+                if (!ValidarVisita(out string errorMsg))
+                {
+                    MessageBox.Show(errorMsg, "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            _visitaRepository.Add(visita);
-            MessageBox.Show("Visita registrada exitosamente.");
-            LimpiarCampos();
-            CargarVisitas();
+                var visita = new Visita
+                {
+                    PropiedadID = int.Parse(txtPropiedadID.Text),
+                    ClienteID = int.Parse(txtClienteID.Text),
+                    AgenteID = int.Parse(txtAgenteID.Text),
+                    Fecha = dtpFecha.Value.Date,
+                    Hora = dtpHora.Value.TimeOfDay
+                };
+
+                _visitaRepository.Add(visita);
+                _transaction.Commit();
+                _transaction = _connection.BeginTransaction();
+                _visitaRepository = new VisitaRepository(_connection, _transaction);
+
+                MessageBox.Show("Visita registrada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCampos();
+                CargarVisitas();
+            }
+            catch (Exception ex)
+            {
+                _transaction.Rollback();
+                MessageBox.Show($"Error al guardar la visita: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnActualizarVisita_Click(object sender, EventArgs e)
         {
-            if (dgvVisitas.SelectedRows.Count == 0) return;
-
-            var visita = new Visita
+            try
             {
-                VisitaID = Convert.ToInt32(dgvVisitas.SelectedRows[0].Cells["VisitaID"].Value),
-                PropiedadID = int.Parse(txtPropiedadID.Text),
-                ClienteID = int.Parse(txtClienteID.Text),
-                AgenteID = int.Parse(txtAgenteID.Text),
-                Fecha = dtpHora.Value.Date,
-                Hora = dtpFecha.Value.TimeOfDay
-            };
+                if (dgvVisitas.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Seleccione una visita para actualizar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            _visitaRepository.Update(visita);
-            MessageBox.Show("Visita actualizada correctamente.");
-            LimpiarCampos();
-            CargarVisitas();
+                if (!ValidarVisita(out string errorMsg))
+                {
+                    MessageBox.Show(errorMsg, "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var visita = new Visita
+                {
+                    VisitaID = Convert.ToInt32(dgvVisitas.SelectedRows[0].Cells["VisitaID"].Value),
+                    PropiedadID = int.Parse(txtPropiedadID.Text),
+                    ClienteID = int.Parse(txtClienteID.Text),
+                    AgenteID = int.Parse(txtAgenteID.Text),
+                    Fecha = dtpFecha.Value.Date,
+                    Hora = dtpHora.Value.TimeOfDay
+                };
+
+                _visitaRepository.Update(visita);
+                _transaction.Commit();
+                _transaction = _connection.BeginTransaction();
+                _visitaRepository = new VisitaRepository(_connection, _transaction);
+
+                MessageBox.Show("Visita actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCampos();
+                CargarVisitas();
+            }
+            catch (Exception ex)
+            {
+                _transaction.Rollback();
+                MessageBox.Show($"Error al actualizar la visita: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnEliminarVisita_Click(object sender, EventArgs e)
         {
-            if (dgvVisitas.SelectedRows.Count == 0) return;
+            if (dgvVisitas.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione una visita para eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            int id = Convert.ToInt32(dgvVisitas.SelectedRows[0].Cells["VisitaID"].Value);
-            _visitaRepository.Delete(id);
-            MessageBox.Show("Visita eliminada.");
-            LimpiarCampos();
-            CargarVisitas();
+            try
+            {
+                int id = Convert.ToInt32(dgvVisitas.SelectedRows[0].Cells["VisitaID"].Value);
+                _visitaRepository.Delete(id);
+                _transaction.Commit();
+                _transaction = _connection.BeginTransaction();
+                _visitaRepository = new VisitaRepository(_connection, _transaction);
+
+                MessageBox.Show("Visita eliminada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCampos();
+                CargarVisitas();
+            }
+            catch (Exception ex)
+            {
+                _transaction.Rollback();
+                MessageBox.Show($"Error al eliminar la visita: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LimpiarCampos()
@@ -125,9 +240,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             txtClienteID.Clear();
             txtPropiedadID.Clear();
             txtAgenteID.Clear();
-            dtpHora.Value = DateTime.Now;
             dtpFecha.Value = DateTime.Now;
+            dtpHora.Value = DateTime.Now;
         }
-
     }
 }

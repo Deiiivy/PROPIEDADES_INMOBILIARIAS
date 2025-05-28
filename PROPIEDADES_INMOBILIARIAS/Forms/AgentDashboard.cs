@@ -7,9 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System;
-using System.Windows.Forms;
 using PROPIEDADES_INMOBILIARIAS.Repositories.PermisoDecorators;
 
 namespace PROPIEDADES_INMOBILIARIAS.Forms
@@ -26,8 +23,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void AgentDashboard_Load(object sender, EventArgs e)
         {
-            // Puedes mostrar info personalizada, como:
-            // lblWelcome.Text = $"Bienvenido Agente {_agenteId}";
+           
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -42,7 +38,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnManageOwnProperties_Click(object sender, EventArgs e)
         {
-            int agenteId = UserSession.AgenteID ?? 0; // Usa el AgenteID directamente
+            int agenteId = UserSession.AgenteID ?? 0; 
             new ManagePropertiesForm(agenteId).Show();
         }
 

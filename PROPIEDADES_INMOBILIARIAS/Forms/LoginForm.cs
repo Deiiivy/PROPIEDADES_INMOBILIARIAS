@@ -23,7 +23,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            lblError.Text = "";  // Limpiar errores previos
+            lblError.Text = "";  
             string email = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
 
