@@ -1,4 +1,8 @@
-﻿namespace PROPIEDADES_INMOBILIARIAS.Forms
+﻿using System.Drawing;
+using System.Windows.Forms;
+using System;
+
+namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
     partial class ManageVisitsForm
     {
@@ -28,172 +32,115 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtClienteID = new System.Windows.Forms.TextBox();
-            this.txtPropiedadID = new System.Windows.Forms.TextBox();
-            this.dtpHora = new System.Windows.Forms.DateTimePicker();
-            this.btnGuardarVisita = new System.Windows.Forms.Button();
-            this.btnActualizarVisita = new System.Windows.Forms.Button();
-            this.btnEliminarVisita = new System.Windows.Forms.Button();
-            this.dgvVisitas = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtAgenteID = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVisitas)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cliente ID";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(58, 115);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Propiedad ID";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(71, 217);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Fecha";
-            // 
-            // txtClienteID
-            // 
-            this.txtClienteID.Location = new System.Drawing.Point(188, 50);
-            this.txtClienteID.Name = "txtClienteID";
-            this.txtClienteID.Size = new System.Drawing.Size(200, 20);
-            this.txtClienteID.TabIndex = 4;
-            // 
-            // txtPropiedadID
-            // 
-            this.txtPropiedadID.Location = new System.Drawing.Point(188, 108);
-            this.txtPropiedadID.Name = "txtPropiedadID";
-            this.txtPropiedadID.Size = new System.Drawing.Size(200, 20);
-            this.txtPropiedadID.TabIndex = 5;
-            // 
-            // dtpHora
-            // 
-            this.dtpHora.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpHora.Location = new System.Drawing.Point(188, 261);
-            this.dtpHora.Name = "dtpHora";
-            this.dtpHora.ShowUpDown = true;
-            this.dtpHora.Size = new System.Drawing.Size(200, 20);
-            this.dtpHora.TabIndex = 7;
-            // 
-            // btnGuardarVisita
-            // 
-            this.btnGuardarVisita.Location = new System.Drawing.Point(138, 313);
-            this.btnGuardarVisita.Name = "btnGuardarVisita";
-            this.btnGuardarVisita.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardarVisita.TabIndex = 8;
-            this.btnGuardarVisita.Text = "Guardar";
-            this.btnGuardarVisita.UseVisualStyleBackColor = true;
-            this.btnGuardarVisita.Click += new System.EventHandler(this.btnGuardarVisita_Click);
-            // 
-            // btnActualizarVisita
-            // 
-            this.btnActualizarVisita.Location = new System.Drawing.Point(283, 313);
-            this.btnActualizarVisita.Name = "btnActualizarVisita";
-            this.btnActualizarVisita.Size = new System.Drawing.Size(75, 23);
-            this.btnActualizarVisita.TabIndex = 9;
-            this.btnActualizarVisita.Text = "Actualizar";
-            this.btnActualizarVisita.UseVisualStyleBackColor = true;
-            this.btnActualizarVisita.Click += new System.EventHandler(this.btnActualizarVisita_Click);
-            // 
-            // btnEliminarVisita
-            // 
-            this.btnEliminarVisita.Location = new System.Drawing.Point(444, 312);
-            this.btnEliminarVisita.Name = "btnEliminarVisita";
-            this.btnEliminarVisita.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminarVisita.TabIndex = 10;
-            this.btnEliminarVisita.Text = "Eliminar";
-            this.btnEliminarVisita.UseVisualStyleBackColor = true;
-            this.btnEliminarVisita.Click += new System.EventHandler(this.btnEliminarVisita_Click);
-            // 
-            // dgvVisitas
-            // 
-            this.dgvVisitas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvVisitas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVisitas.Location = new System.Drawing.Point(422, 50);
-            this.dgvVisitas.Name = "dgvVisitas";
-            this.dgvVisitas.ReadOnly = true;
-            this.dgvVisitas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVisitas.Size = new System.Drawing.Size(355, 241);
-            this.dgvVisitas.TabIndex = 11;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(58, 164);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Agente ID";
-            // 
-            // txtAgenteID
-            // 
-            this.txtAgenteID.Location = new System.Drawing.Point(188, 161);
-            this.txtAgenteID.Name = "txtAgenteID";
-            this.txtAgenteID.Size = new System.Drawing.Size(200, 20);
-            this.txtAgenteID.TabIndex = 13;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(71, 267);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Hora";
-            // 
-            // dtpFecha
-            // 
-            this.dtpFecha.Location = new System.Drawing.Point(188, 210);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(200, 20);
-            this.dtpFecha.TabIndex = 15;
-            // 
-            // ManageVisitsForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.components = new System.ComponentModel.Container();
+            this.Text = "Gestión de Visitas";
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dtpFecha);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtAgenteID);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.dgvVisitas);
-            this.Controls.Add(this.btnEliminarVisita);
-            this.Controls.Add(this.btnActualizarVisita);
-            this.Controls.Add(this.btnGuardarVisita);
-            this.Controls.Add(this.dtpHora);
-            this.Controls.Add(this.txtPropiedadID);
-            this.Controls.Add(this.txtClienteID);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "ManageVisitsForm";
-            this.Text = "ManageVisitsForm";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVisitas)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
 
+            Label lblTitulo = new Label();
+            lblTitulo.Text = "Gestión de Visitas";
+            lblTitulo.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitulo.Location = new Point(280, 10);
+            lblTitulo.AutoSize = true;
+            this.Controls.Add(lblTitulo);
+
+            GroupBox grpDatos = new GroupBox();
+            grpDatos.Text = "Datos de la Visita";
+            grpDatos.Location = new Point(30, 50);
+            grpDatos.Size = new Size(370, 270);
+            this.Controls.Add(grpDatos);
+
+            Label label1 = new Label { Text = "Cliente ID", Location = new Point(20, 30), AutoSize = true };
+            TextBox txtClienteID = new TextBox { Location = new Point(120, 27), Size = new Size(200, 20) };
+
+            Label label2 = new Label { Text = "Propiedad ID", Location = new Point(20, 70), AutoSize = true };
+            TextBox txtPropiedadID = new TextBox { Location = new Point(120, 67), Size = new Size(200, 20) };
+
+            Label label5 = new Label { Text = "Agente ID", Location = new Point(20, 110), AutoSize = true };
+            TextBox txtAgenteID = new TextBox { Location = new Point(120, 107), Size = new Size(200, 20) };
+
+            Label label3 = new Label { Text = "Fecha", Location = new Point(20, 150), AutoSize = true };
+            DateTimePicker dtpFecha = new DateTimePicker { Location = new Point(120, 147), Size = new Size(200, 20) };
+
+            Label label4 = new Label { Text = "Hora", Location = new Point(20, 190), AutoSize = true };
+            DateTimePicker dtpHora = new DateTimePicker
+            {
+                Format = DateTimePickerFormat.Time,
+                ShowUpDown = true,
+                Location = new Point(120, 187),
+                Size = new Size(200, 20)
+            };
+
+            grpDatos.Controls.AddRange(new Control[] {
+        label1, txtClienteID,
+        label2, txtPropiedadID,
+        label5, txtAgenteID,
+        label3, dtpFecha,
+        label4, dtpHora
+    });
+
+            Panel pnlBotones = new Panel();
+            pnlBotones.Location = new Point(30, 340);
+            pnlBotones.Size = new Size(500, 40);
+            this.Controls.Add(pnlBotones);
+
+            Button btnGuardarVisita = new Button
+            {
+                Text = "Registrar Visita",
+                BackColor = Color.LightGreen,
+                Location = new Point(10, 5),
+                Size = new Size(130, 30)
+            };
+            btnGuardarVisita.Click += new EventHandler(this.btnGuardarVisita_Click);
+
+            Button btnActualizarVisita = new Button
+            {
+                Text = "Modificar Visita",
+                BackColor = Color.LightSkyBlue,
+                Location = new Point(150, 5),
+                Size = new Size(130, 30)
+            };
+            btnActualizarVisita.Click += new EventHandler(this.btnActualizarVisita_Click);
+
+            Button btnEliminarVisita = new Button
+            {
+                Text = "Cancelar Visita",
+                BackColor = Color.IndianRed,
+                Location = new Point(290, 5),
+                Size = new Size(130, 30)
+            };
+            btnEliminarVisita.Click += new EventHandler(this.btnEliminarVisita_Click);
+
+            pnlBotones.Controls.AddRange(new Control[] {
+        btnGuardarVisita,
+        btnActualizarVisita,
+        btnEliminarVisita
+    });
+
+            DataGridView dgvVisitas = new DataGridView();
+            dgvVisitas.Location = new Point(420, 60);
+            dgvVisitas.Size = new Size(350, 250);
+            dgvVisitas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVisitas.ReadOnly = true;
+            dgvVisitas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVisitas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvVisitas.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            dgvVisitas.BackgroundColor = Color.White;
+            dgvVisitas.GridColor = Color.LightGray;
+            this.Controls.Add(dgvVisitas);
+
+            // Asignación a campos de clase si los usas
+            this.txtClienteID = txtClienteID;
+            this.txtPropiedadID = txtPropiedadID;
+            this.txtAgenteID = txtAgenteID;
+            this.dtpFecha = dtpFecha;
+            this.dtpHora = dtpHora;
+            this.dgvVisitas = dgvVisitas;
+            this.btnGuardarVisita = btnGuardarVisita;
+            this.btnActualizarVisita = btnActualizarVisita;
+            this.btnEliminarVisita = btnEliminarVisita;
         }
+
 
         #endregion
 

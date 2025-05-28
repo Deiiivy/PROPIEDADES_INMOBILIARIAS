@@ -23,12 +23,13 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            lblError.Text = "";  // Limpiar errores previos
             string email = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Por favor ingrese sus credenciales.");
+                lblError.Text = "Por favor, ingrese su correo y contraseña.";
                 return;
             }
 
@@ -42,7 +43,6 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
                 if (usuario != null)
                 {
-                   
                     UserSession.UsuarioID = usuario.UsuarioID;
                     UserSession.Rol = usuario.Rol;
                     UserSession.AgenteID = usuario.AgenteID;
@@ -50,7 +50,6 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
                     MessageBox.Show($"Bienvenido {usuario.Rol}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                   
                     switch (usuario.Rol.ToLower())
                     {
                         case "admin":
@@ -63,7 +62,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                             new ClienteDashboard().Show();
                             break;
                         default:
-                            MessageBox.Show("Rol no reconocido.");
+                            lblError.Text = "Rol no reconocido.";
                             return;
                     }
 
@@ -71,9 +70,16 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Usuario o contraseña incorrectos", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblError.Text = "Usuario o contraseña incorrectos.";
+                    txtPassword.Clear();
+                    txtPassword.Focus();
                 }
             }
+        }
+
+        private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPassword.UseSystemPasswordChar = !chkShowPassword.Checked;
         }
     }
 }

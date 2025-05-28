@@ -29,6 +29,17 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             // Puedes mostrar info personalizada, como:
             // lblWelcome.Text = $"Bienvenido Agente {_agenteId}";
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            var confirm = MessageBox.Show("¿Estás seguro de que deseas cerrar sesión?", "Cerrar Sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes)
+            {
+                this.Hide();
+                new LoginForm().Show();
+            }
+        }
+
         private void btnManageOwnProperties_Click(object sender, EventArgs e)
         {
             int agenteId = UserSession.AgenteID ?? 0; // Usa el AgenteID directamente

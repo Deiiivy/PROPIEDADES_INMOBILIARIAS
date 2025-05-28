@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
     public partial class ClienteDashboard : Form
@@ -85,7 +87,14 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            this.Close();
+            LoginForm login = new LoginForm();
+            login.Show();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void btnSolicitarVisita_Click(object sender, EventArgs e)

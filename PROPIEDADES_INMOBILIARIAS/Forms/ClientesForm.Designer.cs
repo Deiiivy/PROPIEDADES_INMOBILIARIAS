@@ -1,4 +1,6 @@
-﻿namespace PROPIEDADES_INMOBILIARIAS.Forms
+﻿using System.Windows.Forms;
+
+namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
     partial class ClientesForm
     {
@@ -26,6 +28,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+
         private void InitializeComponent()
         {
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -42,134 +45,88 @@
             this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.Location = new System.Drawing.Point(86, 67);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(100, 20);
-            this.txtNombre.TabIndex = 0;
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Location = new System.Drawing.Point(86, 127);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(100, 20);
-            this.txtTelefono.TabIndex = 1;
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(86, 190);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(100, 20);
-            this.txtEmail.TabIndex = 2;
-            // 
-            // cmbInteres
-            // 
-            this.cmbInteres.FormattingEnabled = true;
-            this.cmbInteres.Location = new System.Drawing.Point(86, 249);
-            this.cmbInteres.Name = "cmbInteres";
-            this.cmbInteres.Size = new System.Drawing.Size(121, 21);
-            this.cmbInteres.TabIndex = 3;
-            // 
-            // btnGuardarCliente
-            // 
-            this.btnGuardarCliente.Location = new System.Drawing.Point(86, 332);
-            this.btnGuardarCliente.Name = "btnGuardarCliente";
-            this.btnGuardarCliente.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardarCliente.TabIndex = 4;
-            this.btnGuardarCliente.Text = "Guardar";
-            this.btnGuardarCliente.UseVisualStyleBackColor = true;
-            this.btnGuardarCliente.Click += new System.EventHandler(this.btnGuardarCliente_Click);
-            // 
-            // btnActualizarCliente
-            // 
-            this.btnActualizarCliente.Location = new System.Drawing.Point(209, 331);
-            this.btnActualizarCliente.Name = "btnActualizarCliente";
-            this.btnActualizarCliente.Size = new System.Drawing.Size(75, 23);
-            this.btnActualizarCliente.TabIndex = 5;
-            this.btnActualizarCliente.Text = "Actualizar ";
-            this.btnActualizarCliente.UseVisualStyleBackColor = true;
-            this.btnActualizarCliente.Click += new System.EventHandler(this.btnActualizarCliente_Click);
-            // 
-            // btnEliminarCliente
-            // 
-            this.btnEliminarCliente.Location = new System.Drawing.Point(368, 331);
-            this.btnEliminarCliente.Name = "btnEliminarCliente";
-            this.btnEliminarCliente.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminarCliente.TabIndex = 6;
-            this.btnEliminarCliente.Text = "Eliminar";
-            this.btnEliminarCliente.UseVisualStyleBackColor = true;
-            this.btnEliminarCliente.Click += new System.EventHandler(this.btnEliminarCliente_Click);
-            // 
-            // dgvClientes
-            // 
-            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientes.Location = new System.Drawing.Point(303, 75);
-            this.dgvClientes.Name = "dgvClientes";
-            this.dgvClientes.Size = new System.Drawing.Size(338, 225);
-            this.dgvClientes.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 8;
+
+            // Form
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Text = "Gestión de Clientes";
+
+            // Labels
+            var labels = new[] { label1, label2, label3, label4 };
+            foreach (var lbl in labels)
+            {
+                lbl.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+                lbl.ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            }
+
+            this.label1.Location = new System.Drawing.Point(40, 50);
             this.label1.Text = "Nombre";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 127);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "telefono";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 196);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "email";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 256);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Interes";
-            // 
-            // ClientesForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dgvClientes);
-            this.Controls.Add(this.btnEliminarCliente);
-            this.Controls.Add(this.btnActualizarCliente);
-            this.Controls.Add(this.btnGuardarCliente);
-            this.Controls.Add(this.cmbInteres);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtTelefono);
-            this.Controls.Add(this.txtNombre);
-            this.Name = "ClientesForm";
-            this.Text = "ClientesForm";
+
+            this.label2.Location = new System.Drawing.Point(40, 100);
+            this.label2.Text = "Teléfono";
+
+            this.label3.Location = new System.Drawing.Point(40, 150);
+            this.label3.Text = "Email";
+
+            this.label4.Location = new System.Drawing.Point(40, 200);
+            this.label4.Text = "Interés";
+
+            // TextBoxes y ComboBox
+            this.txtNombre.Location = new System.Drawing.Point(130, 50);
+            this.txtTelefono.Location = new System.Drawing.Point(130, 100);
+            this.txtEmail.Location = new System.Drawing.Point(130, 150);
+            this.cmbInteres.Location = new System.Drawing.Point(130, 200);
+            this.txtNombre.Size = this.txtTelefono.Size = this.txtEmail.Size = new System.Drawing.Size(160, 22);
+            this.cmbInteres.Size = new System.Drawing.Size(160, 22);
+            this.cmbInteres.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Botones
+            this.btnGuardarCliente.Text = "Guardar";
+            this.btnGuardarCliente.BackColor = System.Drawing.Color.FromArgb(76, 175, 80);
+            this.btnGuardarCliente.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarCliente.FlatStyle = FlatStyle.Flat;
+            this.btnGuardarCliente.Location = new System.Drawing.Point(40, 260);
+            this.btnGuardarCliente.Size = new System.Drawing.Size(80, 35);
+            this.btnGuardarCliente.Click += new System.EventHandler(this.btnGuardarCliente_Click);
+
+            this.btnActualizarCliente.Text = "Actualizar";
+            this.btnActualizarCliente.BackColor = System.Drawing.Color.FromArgb(33, 150, 243);
+            this.btnActualizarCliente.ForeColor = System.Drawing.Color.White;
+            this.btnActualizarCliente.FlatStyle = FlatStyle.Flat;
+            this.btnActualizarCliente.Location = new System.Drawing.Point(140, 260);
+            this.btnActualizarCliente.Size = new System.Drawing.Size(80, 35);
+            this.btnActualizarCliente.Click += new System.EventHandler(this.btnActualizarCliente_Click);
+
+            this.btnEliminarCliente.Text = "Eliminar";
+            this.btnEliminarCliente.BackColor = System.Drawing.Color.FromArgb(244, 67, 54);
+            this.btnEliminarCliente.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarCliente.FlatStyle = FlatStyle.Flat;
+            this.btnEliminarCliente.Location = new System.Drawing.Point(240, 260);
+            this.btnEliminarCliente.Size = new System.Drawing.Size(80, 35);
+            this.btnEliminarCliente.Click += new System.EventHandler(this.btnEliminarCliente_Click);
+
+            // DataGridView
+            this.dgvClientes.Location = new System.Drawing.Point(350, 50);
+            this.dgvClientes.Size = new System.Drawing.Size(420, 300);
+            this.dgvClientes.BackgroundColor = System.Drawing.Color.Gainsboro;
+            this.dgvClientes.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
+            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Agregar controles
+            this.Controls.AddRange(new Control[]
+            {
+        txtNombre, txtTelefono, txtEmail, cmbInteres,
+        btnGuardarCliente, btnActualizarCliente, btnEliminarCliente,
+        dgvClientes,
+        label1, label2, label3, label4
+            });
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
 
         #endregion
 
