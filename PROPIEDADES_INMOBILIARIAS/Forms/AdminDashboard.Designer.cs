@@ -17,6 +17,7 @@
             this.btnManageProperties = new System.Windows.Forms.Button();
             this.btnManageClients = new System.Windows.Forms.Button();
             this.btnManageAgents = new System.Windows.Forms.Button();
+            this.btnManageVisits = new System.Windows.Forms.Button(); // NUEVO BOTÓN
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
@@ -64,9 +65,23 @@
             this.btnManageAgents.UseVisualStyleBackColor = false;
             this.btnManageAgents.Click += new System.EventHandler(this.btnManageAgents_Click);
             // 
+            // btnManageVisits
+            // 
+            this.btnManageVisits.BackColor = System.Drawing.Color.FromArgb(0, 120, 215);
+            this.btnManageVisits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManageVisits.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnManageVisits.ForeColor = System.Drawing.Color.White;
+            this.btnManageVisits.Location = new System.Drawing.Point(320, 200);
+            this.btnManageVisits.Name = "btnManageVisits";
+            this.btnManageVisits.Size = new System.Drawing.Size(180, 40);
+            this.btnManageVisits.TabIndex = 6;
+            this.btnManageVisits.Text = "Gestionar Visitas";
+            this.btnManageVisits.UseVisualStyleBackColor = false;
+            this.btnManageVisits.Click += new System.EventHandler(this.btnManageVisits_Click);
+            // 
             // btnLogout
             // 
-            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(220, 53, 69); // rojo para salir
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(220, 53, 69);
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
@@ -107,6 +122,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 300);
+            this.Controls.Add(this.btnManageVisits); // agregar aquí
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnLogout);
@@ -128,6 +144,7 @@
         private System.Windows.Forms.Button btnManageProperties;
         private System.Windows.Forms.Button btnManageClients;
         private System.Windows.Forms.Button btnManageAgents;
+        private System.Windows.Forms.Button btnManageVisits;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Label labelTitle;
