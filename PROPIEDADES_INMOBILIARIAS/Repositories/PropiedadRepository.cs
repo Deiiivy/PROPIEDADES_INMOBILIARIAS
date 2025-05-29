@@ -43,9 +43,12 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                 cmd.Parameters.AddWithValue("@Superficie", propiedad.Superficie);
                 cmd.Parameters.AddWithValue("@Precio", propiedad.Precio);
                 cmd.Parameters.AddWithValue("@Estado", propiedad.Estado.ToString());
+                cmd.Parameters.AddWithValue("@AgenteID", propiedad.AgenteID); 
+
                 cmd.ExecuteNonQuery();
             }
         }
+
 
         public void Delete(int id)
         {
@@ -189,12 +192,13 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                             Superficie = Convert.ToDouble(reader["Superficie"]),
                             Precio = Convert.ToDecimal(reader["Precio"]),
                             Estado = MapearEstado(reader["Estado"].ToString()),
-                            AgenteID = reader["AgenteID"] != DBNull.Value ? Convert.ToInt32(reader["AgenteID"]) : 0
+                          
                         });
                     }
                 }
             }
             return propiedades;
         }
+
     }
 }

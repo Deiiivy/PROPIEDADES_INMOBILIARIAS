@@ -103,5 +103,33 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             }
             return visitas;
         }
+
+        public IEnumerable<Visita> GetVisitasPorCliente(int clienteId)
+        {
+            var visitas = new List<Visita>();
+            using (var cmd = new SqlCommand("SP_ObtenerVisitasPorCliente", _connection, _transaction))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        visitas.Add(new Visita
+                        {
+                            VisitaID = (int)reader["VisitaID"],
+                            PropiedadID = (int)reader["PropiedadID"],
+                            ClienteID = (int)reader["ClienteID"],
+                            AgenteID = (int)reader["AgenteID"],
+                            Fecha = (DateTime)reader["Fecha"],
+                            Hora = TimeSpan.Parse(reader["Hora"].ToString())
+                        });
+                    }
+                }
+            }
+            return visitas;
+        }
+
     }
 }

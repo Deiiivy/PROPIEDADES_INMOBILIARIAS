@@ -4,6 +4,15 @@
     {
         private System.ComponentModel.IContainer components = null;
 
+        private System.Windows.Forms.DataGridView dgvPropiedades;
+        private System.Windows.Forms.DataGridView dgvVisitas; 
+        private System.Windows.Forms.Button btnSolicitarVisita;
+        private System.Windows.Forms.Button btnMarcarInteres;
+        private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label lblPropiedades;
+        private System.Windows.Forms.Label lblVisitas;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -13,113 +22,105 @@
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
-
         private void InitializeComponent()
         {
             this.dgvPropiedades = new System.Windows.Forms.DataGridView();
+            this.dgvVisitas = new System.Windows.Forms.DataGridView();
             this.btnSolicitarVisita = new System.Windows.Forms.Button();
+            this.btnMarcarInteres = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.lblPropiedades = new System.Windows.Forms.Label();
+            this.lblVisitas = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisitas)).BeginInit();
             this.SuspendLayout();
-            // 
+
             // dgvPropiedades
-            // 
-            this.dgvPropiedades.AllowUserToAddRows = false;
-            this.dgvPropiedades.AllowUserToDeleteRows = false;
-            this.dgvPropiedades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPropiedades.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvPropiedades.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvPropiedades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPropiedades.GridColor = System.Drawing.Color.LightGray;
-            this.dgvPropiedades.Location = new System.Drawing.Point(25, 20);
-            this.dgvPropiedades.MultiSelect = false;
+            this.dgvPropiedades.Location = new System.Drawing.Point(30, 50);
             this.dgvPropiedades.Name = "dgvPropiedades";
-            this.dgvPropiedades.ReadOnly = true;
-            this.dgvPropiedades.RowHeadersVisible = false;
-            this.dgvPropiedades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPropiedades.Size = new System.Drawing.Size(750, 320);
+            this.dgvPropiedades.Size = new System.Drawing.Size(700, 180);
             this.dgvPropiedades.TabIndex = 0;
-            this.dgvPropiedades.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            this.dgvPropiedades.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            // 
+
+            // dgvVisitas
+            this.dgvVisitas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVisitas.Location = new System.Drawing.Point(30, 290);
+            this.dgvVisitas.Name = "dgvVisitas";
+            this.dgvVisitas.Size = new System.Drawing.Size(700, 150);
+            this.dgvVisitas.TabIndex = 1;
+
             // btnSolicitarVisita
-            // 
-            this.btnSolicitarVisita.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnSolicitarVisita.FlatAppearance.BorderSize = 0;
-            this.btnSolicitarVisita.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSolicitarVisita.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSolicitarVisita.ForeColor = System.Drawing.Color.White;
-            this.btnSolicitarVisita.Location = new System.Drawing.Point(25, 360);
+            this.btnSolicitarVisita.Location = new System.Drawing.Point(750, 50);
             this.btnSolicitarVisita.Name = "btnSolicitarVisita";
-            this.btnSolicitarVisita.Size = new System.Drawing.Size(140, 40);
-            this.btnSolicitarVisita.TabIndex = 1;
+            this.btnSolicitarVisita.Size = new System.Drawing.Size(130, 40);
+            this.btnSolicitarVisita.TabIndex = 2;
             this.btnSolicitarVisita.Text = "Solicitar Visita";
-            this.btnSolicitarVisita.UseVisualStyleBackColor = false;
+            this.btnSolicitarVisita.UseVisualStyleBackColor = true;
             this.btnSolicitarVisita.Click += new System.EventHandler(this.btnSolicitarVisita_Click);
-            this.btnSolicitarVisita.MouseEnter += (s, e) => { this.btnSolicitarVisita.BackColor = System.Drawing.Color.DodgerBlue; };
-            this.btnSolicitarVisita.MouseLeave += (s, e) => { this.btnSolicitarVisita.BackColor = System.Drawing.Color.SteelBlue; };
-            // 
+
+            // btnMarcarInteres
+            this.btnMarcarInteres.Location = new System.Drawing.Point(750, 100);
+            this.btnMarcarInteres.Name = "btnMarcarInteres";
+            this.btnMarcarInteres.Size = new System.Drawing.Size(130, 40);
+            this.btnMarcarInteres.TabIndex = 3;
+            this.btnMarcarInteres.Text = "Marcar Interés";
+            this.btnMarcarInteres.UseVisualStyleBackColor = true;
+            this.btnMarcarInteres.Click += new System.EventHandler(this.btnMarcarInteres_Click);
+
             // btnCerrarSesion
-            // 
-            this.btnCerrarSesion.BackColor = System.Drawing.Color.IndianRed;
-            this.btnCerrarSesion.FlatAppearance.BorderSize = 0;
-            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrarSesion.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnCerrarSesion.ForeColor = System.Drawing.Color.White;
-            this.btnCerrarSesion.Location = new System.Drawing.Point(635, 360);
+            this.btnCerrarSesion.Location = new System.Drawing.Point(750, 400);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
-            this.btnCerrarSesion.Size = new System.Drawing.Size(140, 40);
-            this.btnCerrarSesion.TabIndex = 2;
+            this.btnCerrarSesion.Size = new System.Drawing.Size(130, 40);
+            this.btnCerrarSesion.TabIndex = 4;
             this.btnCerrarSesion.Text = "Cerrar Sesión";
-            this.btnCerrarSesion.UseVisualStyleBackColor = false;
+            this.btnCerrarSesion.UseVisualStyleBackColor = true;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
-            this.btnCerrarSesion.MouseEnter += (s, e) => { this.btnCerrarSesion.BackColor = System.Drawing.Color.Firebrick; };
-            this.btnCerrarSesion.MouseLeave += (s, e) => { this.btnCerrarSesion.BackColor = System.Drawing.Color.IndianRed; };
-            // 
+
             // btnVolver
-            // 
-            this.btnVolver.BackColor = System.Drawing.Color.Gray;
-            this.btnVolver.FlatAppearance.BorderSize = 0;
-            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnVolver.ForeColor = System.Drawing.Color.White;
-            this.btnVolver.Location = new System.Drawing.Point(460, 360);
+            this.btnVolver.Location = new System.Drawing.Point(750, 350);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(140, 40);
-            this.btnVolver.TabIndex = 3;
+            this.btnVolver.Size = new System.Drawing.Size(130, 40);
+            this.btnVolver.TabIndex = 5;
             this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = false;
+            this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            this.btnVolver.MouseEnter += (s, e) => { this.btnVolver.BackColor = System.Drawing.Color.DarkGray; };
-            this.btnVolver.MouseLeave += (s, e) => { this.btnVolver.BackColor = System.Drawing.Color.Gray; };
-            // 
+
+            // lblPropiedades
+            this.lblPropiedades.AutoSize = true;
+            this.lblPropiedades.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblPropiedades.Location = new System.Drawing.Point(30, 20);
+            this.lblPropiedades.Name = "lblPropiedades";
+            this.lblPropiedades.Size = new System.Drawing.Size(182, 19);
+            this.lblPropiedades.Text = "Propiedades disponibles:";
+
+            // lblVisitas
+            this.lblVisitas.AutoSize = true;
+            this.lblVisitas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblVisitas.Location = new System.Drawing.Point(30, 260);
+            this.lblVisitas.Name = "lblVisitas";
+            this.lblVisitas.Size = new System.Drawing.Size(144, 19);
+            this.lblVisitas.Text = "Visitas agendadas:";
+
             // ClienteDashboard
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(800, 420);
+            this.ClientSize = new System.Drawing.Size(900, 470);
+            this.Controls.Add(this.lblPropiedades);
+            this.Controls.Add(this.lblVisitas);
+            this.Controls.Add(this.dgvPropiedades);
+            this.Controls.Add(this.dgvVisitas);
+            this.Controls.Add(this.btnSolicitarVisita);
+            this.Controls.Add(this.btnMarcarInteres);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnCerrarSesion);
-            this.Controls.Add(this.btnSolicitarVisita);
-            this.Controls.Add(this.dgvPropiedades);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
             this.Name = "ClienteDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Panel de Cliente - Propiedades Disponibles";
+            this.Text = "Panel del Cliente";
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisitas)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
-
-        #endregion
-
-        private System.Windows.Forms.DataGridView dgvPropiedades;
-        private System.Windows.Forms.Button btnSolicitarVisita;
-        private System.Windows.Forms.Button btnCerrarSesion;
-        private System.Windows.Forms.Button btnVolver;
     }
 }

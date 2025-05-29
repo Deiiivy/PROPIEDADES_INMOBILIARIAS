@@ -2,16 +2,10 @@
 using PROPIEDADES_INMOBILIARIAS.Repositories.PermisoDecorators;
 using PROPIEDADES_INMOBILIARIAS.Repositories;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using PROPIEDADES_INMOBILIARIAS.Data;
+using System.Data;
 
 
 
@@ -19,9 +13,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
     public partial class ClienteDashboard : Form
     {
-        private readonly SqlConnection _connection;
-        private readonly SqlTransaction _transaction;
-        private readonly PropiedadRepository _propiedadRepository;
+        private readonly UnitOfWork _unitOfWork;
 
         public ClienteDashboard()
         {
@@ -29,11 +21,13 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["RealEstateDB"].ConnectionString;
-                _connection = new SqlConnection(connectionString);
-                _connection.Open();
-                _transaction = _connection.BeginTransaction();
-                _propiedadRepository = new PropiedadRepository(_connection, _transaction);
+                _unitOfWork = new UnitOfWork(habilitarPermisos: false);
+
+                var connection = _unitOfWork.GetConnection();
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
 
                 this.FormClosing += ClienteDashboard_FormClosing;
                 this.Load += ClienteDashboard_Load;
@@ -50,10 +44,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             try
             {
                 CargarPropiedades();
+                CargarVisitas(); // Nuevo
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error cargando propiedades: {ex.Message}");
+                MessageBox.Show($"Error cargando datos: {ex.Message}");
             }
         }
 
@@ -61,8 +56,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
         {
             try
             {
-                _transaction?.Commit();
-                _connection?.Close();
+                _unitOfWork.Commit();
             }
             catch (Exception ex)
             {
@@ -72,7 +66,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void CargarPropiedades()
         {
-            var propiedades = _propiedadRepository.GetDisponibles().ToList();
+            var propiedades = _unitOfWork.Propiedades.GetDisponibles().ToList();
             dgvPropiedades.DataSource = propiedades;
 
             if (dgvPropiedades.Columns.Contains("PropiedadID"))
@@ -83,6 +77,19 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             dgvPropiedades.Columns["Superficie"].HeaderText = "Superficie";
             dgvPropiedades.Columns["Precio"].HeaderText = "Precio";
             dgvPropiedades.Columns["Estado"].HeaderText = "Estado";
+        }
+
+        private void CargarVisitas()
+        {
+            var visitas = _unitOfWork.Visitas.GetVisitasPorCliente(UserSession.UsuarioID).ToList();
+            dgvVisitas.DataSource = visitas;
+
+            if (dgvVisitas.Columns.Contains("VisitaID"))
+                dgvVisitas.Columns["VisitaID"].Visible = false;
+
+            dgvVisitas.Columns["PropiedadID"].HeaderText = "ID Propiedad";
+            dgvVisitas.Columns["Fecha"].HeaderText = "Fecha";
+            dgvVisitas.Columns["Hora"].HeaderText = "Hora";
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -107,6 +114,36 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
             int propiedadId = (int)dgvPropiedades.SelectedRows[0].Cells["PropiedadID"].Value;
             MessageBox.Show($"Solicitud de visita enviada para propiedad ID {propiedadId}.\n(Implementar lógica más adelante)");
+        }
+
+        private void btnMarcarInteres_Click(object sender, EventArgs e)
+        {
+            if (dgvPropiedades.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione una propiedad para marcar interés.");
+                return;
+            }
+
+            try
+            {
+                int propiedadId = (int)dgvPropiedades.SelectedRows[0].Cells["PropiedadID"].Value;
+                decimal precio = (decimal)dgvPropiedades.SelectedRows[0].Cells["Precio"].Value;
+
+                var transaccion = new Transaccion
+                {
+                    PropiedadID = propiedadId,
+                    ClienteID = UserSession.UsuarioID,
+                    FechaVenta = DateTime.Now,
+                    Monto = precio
+                };
+
+                _unitOfWork.Transacciones.Add(transaccion);
+                MessageBox.Show("Interés registrado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar el interés: {ex.Message}");
+            }
         }
     }
 }

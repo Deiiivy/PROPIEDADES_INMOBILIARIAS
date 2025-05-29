@@ -31,6 +31,9 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             _transaction = _connection.BeginTransaction();
             _visitaRepository = new VisitaRepository(_connection, _transaction);
 
+            this.Load += ManageVisitsForm_Load;
+            this.dgvVisitas.SelectionChanged += dgvVisitas_SelectionChanged;
+
             this.FormClosing += (s, e) =>
             {
                 try
@@ -76,8 +79,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             DateTime fecha = (DateTime)row.Cells["Fecha"].Value;
             TimeSpan hora = (TimeSpan)row.Cells["Hora"].Value;
 
-            dtpFecha.Value = fecha.Date;             // Control fecha (solo fecha)
-            dtpHora.Value = DateTime.Today.Add(hora); // Control hora (solo hora)
+            dtpFecha.Value = fecha.Date;            
+            dtpHora.Value = DateTime.Today.Add(hora); 
         }
 
         private bool ValidarVisita(out string errorMsg)

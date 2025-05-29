@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -81,11 +82,33 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             }
 
             int id = Convert.ToInt32(dgvAgentes.SelectedRows[0].Cells["AgenteID"].Value);
-            _agenteRepository.Delete(id);
-            MessageBox.Show("Agente eliminado.");
-            LimpiarCampos();
-            CargarAgentes();
+
+            try
+            {
+                _agenteRepository.Delete(id);
+                MessageBox.Show("Agente eliminado exitosamente.");
+                LimpiarCampos();
+                CargarAgentes();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Message.Contains("REFERENCE constraint") || ex.Number == 547) // 547 es código para violación de restricción FK
+                {
+                    MessageBox.Show("No se puede eliminar este agente porque tiene propiedades asignadas.\nDebe reasignar o eliminar esas propiedades primero.",
+                                    "Eliminación no permitida",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar el agente: " + ex.Message,
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
         }
+
 
         private void ManageAgentsForm_Load(object sender, EventArgs e)
         {

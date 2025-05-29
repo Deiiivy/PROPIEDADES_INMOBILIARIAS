@@ -25,8 +25,8 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             _repo = new PropiedadRepository(DatabaseConnection.Instance.GetConnection(), null);
             _agenteId = agenteId;
             this.Shown += ManagePropertiesForm_Shown;
+            this.dgvPropiedades.SelectionChanged += dgvPropiedades_SelectionChanged; // <-- evento conectado
         }
-
 
         private void ManagePropertiesForm_Shown(object sender, EventArgs e)
         {
@@ -37,20 +37,16 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             CargarPropiedades();
         }
 
-
         private void CargarPropiedades()
         {
             dgvPropiedades.DataSource = null;
-
             var lista = _agenteId.HasValue
                 ? _repo.GetByAgenteId(_agenteId.Value).ToList()
                 : _repo.GetAll().ToList();
 
-
             dgvPropiedades.AutoGenerateColumns = true;
             dgvPropiedades.DataSource = lista;
         }
-
 
         private void dgvPropiedades_SelectionChanged(object sender, EventArgs e)
         {
@@ -105,22 +101,29 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
             if (!ValidarCampos()) return;
 
-            int id = Convert.ToInt32(dgvPropiedades.SelectedRows[0].Cells["PropiedadID"].Value);
-            var propiedad = new Propiedad
+            try
             {
-                PropiedadID = id,
-                Direccion = txtDireccion.Text,
-                Tipo = (TipoPropiedad)Enum.Parse(typeof(TipoPropiedad), cmbTipo.SelectedItem.ToString()),
-                Superficie = double.Parse(txtSuperficie.Text),
-                Precio = decimal.Parse(txtPrecio.Text),
-                Estado = (EstadoPropiedad)Enum.Parse(typeof(EstadoPropiedad), cmbEstado.SelectedItem.ToString()),
-                AgenteID = _agenteId ?? int.Parse(txtAgenteID.Text)
-            };
+                int id = Convert.ToInt32(dgvPropiedades.SelectedRows[0].Cells["PropiedadID"].Value);
+                var propiedad = new Propiedad
+                {
+                    PropiedadID = id,
+                    Direccion = txtDireccion.Text,
+                    Tipo = (TipoPropiedad)Enum.Parse(typeof(TipoPropiedad), cmbTipo.SelectedItem.ToString()),
+                    Superficie = double.Parse(txtSuperficie.Text),
+                    Precio = decimal.Parse(txtPrecio.Text),
+                    Estado = (EstadoPropiedad)Enum.Parse(typeof(EstadoPropiedad), cmbEstado.SelectedItem.ToString()),
+                    AgenteID = _agenteId ?? int.Parse(txtAgenteID.Text)
+                };
 
-            _repo.Update(propiedad);
-            MessageBox.Show("Propiedad actualizada.");
-            LimpiarCampos();
-            CargarPropiedades();
+                _repo.Update(propiedad);
+                MessageBox.Show("Propiedad actualizada.");
+                LimpiarCampos();
+                CargarPropiedades();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar: " + ex.Message);
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)

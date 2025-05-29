@@ -10,9 +10,10 @@ namespace PROPIEDADES_INMOBILIARIAS.Models
     {
         public int TransaccionID { get; set; }
         public int PropiedadID { get; set; }
-        public int ClienteID { get; set; }   
+        public int ClienteID { get; set; }
         public DateTime FechaVenta { get; set; }
         public decimal Monto { get; set; }
     }
+
 }
 
