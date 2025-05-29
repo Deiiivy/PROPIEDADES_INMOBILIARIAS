@@ -103,6 +103,12 @@
     <Compile Include="Forms\ManageVisitsForm.Designer.cs">
       <DependentUpon>ManageVisitsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SolicitarVisitaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SolicitarVisitaForm.Designer.cs">
+      <DependentUpon>SolicitarVisitaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agente.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Enums.cs" />

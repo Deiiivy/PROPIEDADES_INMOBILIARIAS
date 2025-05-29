@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using PROPIEDADES_INMOBILIARIAS.Models;
 using System.Collections.Generic;
 using System;
+using System.Windows.Forms;
 
 namespace PROPIEDADES_INMOBILIARIAS.Repositories
 {
@@ -10,6 +11,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
     {
         private readonly SqlConnection _connection;
         private readonly SqlTransaction _transaction;
+
+        public VisitaRepository(SqlConnection connection)
+        {
+            _connection = connection;
+        }
 
         public VisitaRepository(SqlConnection connection, SqlTransaction transaction)
         {
@@ -69,9 +75,10 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                             VisitaID = (int)reader["VisitaID"],
                             PropiedadID = (int)reader["PropiedadID"],
                             ClienteID = (int)reader["ClienteID"],
-                            AgenteID = (int)reader["AgenteID"],
+                            AgenteID = reader.IsDBNull(reader.GetOrdinal("AgenteID")) ? 0 : (int)reader["AgenteID"],
                             Fecha = (DateTime)reader["Fecha"],
-                            Hora = TimeSpan.Parse(reader["Hora"].ToString())
+                            Hora = TimeSpan.Parse(reader["Hora"].ToString()),
+                            Estado = reader.IsDBNull(reader.GetOrdinal("Estado")) ? "Sin estado" : reader["Estado"].ToString()
                         };
                     }
                     return null;
@@ -94,9 +101,10 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                             VisitaID = (int)reader["VisitaID"],
                             PropiedadID = (int)reader["PropiedadID"],
                             ClienteID = (int)reader["ClienteID"],
-                            AgenteID = (int)reader["AgenteID"],
+                            AgenteID = reader.IsDBNull(reader.GetOrdinal("AgenteID")) ? 0 : (int)reader["AgenteID"],
                             Fecha = (DateTime)reader["Fecha"],
-                            Hora = TimeSpan.Parse(reader["Hora"].ToString())
+                            Hora = TimeSpan.Parse(reader["Hora"].ToString()),
+                            Estado = reader.IsDBNull(reader.GetOrdinal("Estado")) ? "Sin estado" : reader["Estado"].ToString()
                         });
                     }
                 }
@@ -107,29 +115,55 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
         public IEnumerable<Visita> GetVisitasPorCliente(int clienteId)
         {
             var visitas = new List<Visita>();
-            using (var cmd = new SqlCommand("SP_ObtenerVisitasPorCliente", _connection, _transaction))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
 
-                using (var reader = cmd.ExecuteReader())
+            try
+            {
+                if (_connection.State != ConnectionState.Open)
+                    _connection.Open();
+
+                using (var cmd = new SqlCommand("SP_ObtenerVisitasPorCliente", _connection, _transaction))
                 {
-                    while (reader.Read())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        visitas.Add(new Visita
+                        while (reader.Read())
                         {
-                            VisitaID = (int)reader["VisitaID"],
-                            PropiedadID = (int)reader["PropiedadID"],
-                            ClienteID = (int)reader["ClienteID"],
-                            AgenteID = (int)reader["AgenteID"],
-                            Fecha = (DateTime)reader["Fecha"],
-                            Hora = TimeSpan.Parse(reader["Hora"].ToString())
-                        });
+                            visitas.Add(new Visita
+                            {
+                                VisitaID = (int)reader["VisitaID"],
+                                PropiedadID = (int)reader["PropiedadID"],
+                                ClienteID = (int)reader["ClienteID"],
+                                AgenteID = reader.IsDBNull(reader.GetOrdinal("AgenteID")) ? 0 : (int)reader["AgenteID"],
+                                Fecha = (DateTime)reader["Fecha"],
+                                Hora = TimeSpan.Parse(reader["Hora"].ToString()),
+                                Estado = reader.IsDBNull(reader.GetOrdinal("Estado")) ? "Sin estado" : reader["Estado"].ToString()
+                            });
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en GetVisitasPorCliente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             return visitas;
         }
 
+        public void RegistrarSolicitudVisita(int clienteId, int propiedadId, DateTime fecha, TimeSpan hora)
+        {
+            using (var cmd = new SqlCommand("SP_RegistrarSolicitudVisita", _connection, _transaction))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                cmd.Parameters.AddWithValue("@PropiedadID", propiedadId);
+                cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
+                cmd.Parameters.AddWithValue("@Hora", hora);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

@@ -25,9 +25,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                 cmd.Parameters.AddWithValue("@PropiedadID", transaccion.PropiedadID);
                 cmd.Parameters.AddWithValue("@ClienteID", transaccion.ClienteID);
                 cmd.Parameters.AddWithValue("@Monto", transaccion.Monto);
+                cmd.Parameters.AddWithValue("@FechaVenta", transaccion.FechaVenta);
                 cmd.ExecuteNonQuery();
             }
         }
+
 
         public void Update(Transaccion transaccion)
         {
