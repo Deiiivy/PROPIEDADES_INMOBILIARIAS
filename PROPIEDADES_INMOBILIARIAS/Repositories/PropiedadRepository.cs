@@ -52,13 +52,30 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
 
         public void Delete(int id)
         {
-            using (var cmd = new SqlCommand("SP_EliminarPropiedad", _connection, _transaction))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@PropiedadID", id);
-                cmd.ExecuteNonQuery();
+                using (var cmd = new SqlCommand("SP_EliminarPropiedad", _connection, _transaction))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PropiedadID", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+              
+                if (ex.Number == 547)
+                {
+                    throw new InvalidOperationException("No se puede eliminar la propiedad porque tiene visitas agendadas.");
+                }
+                else
+                {
+                    throw; 
+                }
             }
         }
+
+        
 
         public Propiedad GetById(int id)
         {

@@ -56,10 +56,17 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 Interes = cmbInteres.SelectedItem.ToString()
             };
 
-            _clienteRepository.Add(cliente);
-            MessageBox.Show("Cliente guardado exitosamente.");
-            LimpiarCampos();
-            CargarClientes();
+            try
+            {
+                _clienteRepository.Add(cliente);
+                MessageBox.Show("Cliente guardado exitosamente.");
+                LimpiarCampos();
+                CargarClientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar el cliente: " + ex.Message);
+            }
         }
 
         private void btnActualizarCliente_Click(object sender, EventArgs e)
@@ -79,10 +86,17 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 Interes = cmbInteres.SelectedItem.ToString()
             };
 
-            _clienteRepository.Update(cliente);
-            MessageBox.Show("Cliente actualizado.");
-            LimpiarCampos();
-            CargarClientes();
+            try
+            {
+                _clienteRepository.Update(cliente);
+                MessageBox.Show("Cliente actualizado.");
+                LimpiarCampos();
+                CargarClientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el cliente: " + ex.Message);
+            }
         }
 
         private void btnEliminarCliente_Click(object sender, EventArgs e)
@@ -94,10 +108,18 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             }
 
             int clienteId = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells["ClienteID"].Value);
-            _clienteRepository.Delete(clienteId);
-            MessageBox.Show("Cliente eliminado.");
-            LimpiarCampos();
-            CargarClientes();
+
+            try
+            {
+                _clienteRepository.Delete(clienteId);
+                MessageBox.Show("Cliente eliminado.");
+                LimpiarCampos();
+                CargarClientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el cliente: " + ex.Message);
+            }
         }
 
         private void dgvClientes_SelectionChanged(object sender, EventArgs e)
@@ -123,8 +145,15 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void CargarClientes()
         {
-            dgvClientes.DataSource = _clienteRepository.GetAll();
-            dgvClientes.ClearSelection();
+            try
+            {
+                dgvClientes.DataSource = _clienteRepository.GetAll();
+                dgvClientes.ClearSelection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los clientes: " + ex.Message);
+            }
         }
     }
 }

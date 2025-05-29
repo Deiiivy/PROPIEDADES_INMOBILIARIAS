@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using PROPIEDADES_INMOBILIARIAS.Models;
 using PROPIEDADES_INMOBILIARIAS.Repositories;
 
@@ -25,70 +24,88 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             _repo = new PropiedadRepository(DatabaseConnection.Instance.GetConnection(), null);
             _agenteId = agenteId;
             this.Shown += ManagePropertiesForm_Shown;
-            this.dgvPropiedades.SelectionChanged += dgvPropiedades_SelectionChanged; // <-- evento conectado
+            this.dgvPropiedades.SelectionChanged += dgvPropiedades_SelectionChanged;
         }
 
         private void ManagePropertiesForm_Shown(object sender, EventArgs e)
         {
-            cmbTipo.DataSource = Enum.GetValues(typeof(TipoPropiedad));
-            cmbEstado.DataSource = Enum.GetValues(typeof(EstadoPropiedad));
-            cmbTipo.SelectedIndex = -1;
-            cmbEstado.SelectedIndex = -1;
-            CargarPropiedades();
+            try
+            {
+                cmbTipo.DataSource = Enum.GetValues(typeof(TipoPropiedad));
+                cmbEstado.DataSource = Enum.GetValues(typeof(EstadoPropiedad));
+                cmbTipo.SelectedIndex = -1;
+                cmbEstado.SelectedIndex = -1;
+                CargarPropiedades();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el formulario: " + ex.Message);
+            }
         }
 
         private void CargarPropiedades()
         {
-            dgvPropiedades.DataSource = null;
-            var lista = _agenteId.HasValue
-                ? _repo.GetByAgenteId(_agenteId.Value).ToList()
-                : _repo.GetAll().ToList();
+            try
+            {
+                dgvPropiedades.DataSource = null;
+                var lista = _agenteId.HasValue
+                    ? _repo.GetByAgenteId(_agenteId.Value).ToList()
+                    : _repo.GetAll().ToList();
 
-            dgvPropiedades.AutoGenerateColumns = true;
-            dgvPropiedades.DataSource = lista;
+                dgvPropiedades.AutoGenerateColumns = true;
+                dgvPropiedades.DataSource = lista;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar propiedades: " + ex.Message);
+            }
         }
 
         private void dgvPropiedades_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvPropiedades.SelectedRows.Count == 0) return;
+            try
+            {
+                if (dgvPropiedades.SelectedRows.Count == 0) return;
 
-            var row = dgvPropiedades.SelectedRows[0];
-            txtDireccion.Text = row.Cells["Direccion"].Value?.ToString();
-            cmbTipo.SelectedItem = Enum.Parse(typeof(TipoPropiedad), row.Cells["Tipo"].Value.ToString());
-            txtSuperficie.Text = row.Cells["Superficie"].Value?.ToString();
-            txtPrecio.Text = row.Cells["Precio"].Value?.ToString();
-            cmbEstado.SelectedItem = Enum.Parse(typeof(EstadoPropiedad), row.Cells["Estado"].Value.ToString());
-            txtAgenteID.Text = row.Cells["AgenteID"].Value?.ToString();
-        }
-
-        private void LimpiarCampos()
-        {
-            txtDireccion.Clear();
-            txtSuperficie.Clear();
-            txtPrecio.Clear();
-            txtAgenteID.Clear();
-            cmbTipo.SelectedIndex = -1;
-            cmbEstado.SelectedIndex = -1;
+                var row = dgvPropiedades.SelectedRows[0];
+                txtDireccion.Text = row.Cells["Direccion"].Value?.ToString();
+                cmbTipo.SelectedItem = Enum.Parse(typeof(TipoPropiedad), row.Cells["Tipo"].Value.ToString());
+                txtSuperficie.Text = row.Cells["Superficie"].Value?.ToString();
+                txtPrecio.Text = row.Cells["Precio"].Value?.ToString();
+                cmbEstado.SelectedItem = Enum.Parse(typeof(EstadoPropiedad), row.Cells["Estado"].Value.ToString());
+                txtAgenteID.Text = row.Cells["AgenteID"].Value?.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al seleccionar propiedad: " + ex.Message);
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
 
-            var propiedad = new Propiedad
+            try
             {
-                Direccion = txtDireccion.Text,
-                Tipo = (TipoPropiedad)Enum.Parse(typeof(TipoPropiedad), cmbTipo.SelectedItem.ToString()),
-                Superficie = double.Parse(txtSuperficie.Text),
-                Precio = decimal.Parse(txtPrecio.Text),
-                Estado = (EstadoPropiedad)Enum.Parse(typeof(EstadoPropiedad), cmbEstado.SelectedItem.ToString()),
-                AgenteID = _agenteId ?? int.Parse(txtAgenteID.Text)
-            };
+                var propiedad = new Propiedad
+                {
+                    Direccion = txtDireccion.Text,
+                    Tipo = (TipoPropiedad)Enum.Parse(typeof(TipoPropiedad), cmbTipo.SelectedItem.ToString()),
+                    Superficie = double.Parse(txtSuperficie.Text),
+                    Precio = decimal.Parse(txtPrecio.Text),
+                    Estado = (EstadoPropiedad)Enum.Parse(typeof(EstadoPropiedad), cmbEstado.SelectedItem.ToString()),
+                    AgenteID = _agenteId ?? int.Parse(txtAgenteID.Text)
+                };
 
-            _repo.Add(propiedad);
-            MessageBox.Show("Propiedad agregada exitosamente.");
-            LimpiarCampos();
-            CargarPropiedades();
+                _repo.Add(propiedad);
+                MessageBox.Show("Propiedad agregada exitosamente.");
+                LimpiarCampos();
+                CargarPropiedades();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al agregar propiedad: " + ex.Message);
+            }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -122,7 +139,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar: " + ex.Message);
+                MessageBox.Show("Error al actualizar propiedad: " + ex.Message);
             }
         }
 
@@ -134,11 +151,22 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 return;
             }
 
-            int id = Convert.ToInt32(dgvPropiedades.SelectedRows[0].Cells["PropiedadID"].Value);
-            _repo.Delete(id);
-            MessageBox.Show("Propiedad eliminada.");
-            LimpiarCampos();
-            CargarPropiedades();
+            try
+            {
+                int id = Convert.ToInt32(dgvPropiedades.SelectedRows[0].Cells["PropiedadID"].Value);
+                _repo.Delete(id);
+                MessageBox.Show("Propiedad eliminada.");
+                LimpiarCampos();
+                CargarPropiedades();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("No se puede eliminar la propiedad: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar propiedad: " + ex.Message);
+            }
         }
 
         private bool ValidarCampos()
@@ -167,6 +195,16 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             }
 
             return true;
+        }
+
+        private void LimpiarCampos()
+        {
+            txtDireccion.Clear();
+            txtSuperficie.Clear();
+            txtPrecio.Clear();
+            txtAgenteID.Clear();
+            cmbTipo.SelectedIndex = -1;
+            cmbEstado.SelectedIndex = -1;
         }
     }
 }

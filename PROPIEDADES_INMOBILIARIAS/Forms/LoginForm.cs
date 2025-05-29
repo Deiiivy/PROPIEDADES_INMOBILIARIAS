@@ -23,7 +23,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            lblError.Text = "";  
+            lblError.Text = "";
             string email = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
 
@@ -33,47 +33,54 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 return;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["RealEstateDB"].ConnectionString;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                var authRepo = new AuthRepository(connection);
-                var usuario = authRepo.Login(email, password);
+                string connectionString = ConfigurationManager.ConnectionStrings["RealEstateDB"].ConnectionString;
 
-                if (usuario != null)
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    UserSession.UsuarioID = usuario.UsuarioID;
-                    UserSession.Rol = usuario.Rol;
-                    UserSession.AgenteID = usuario.AgenteID;
-                    UserSession.ClienteID = usuario.ClienteID;
+                    connection.Open();
+                    var authRepo = new AuthRepository(connection);
+                    var usuario = authRepo.Login(email, password);
 
-                    MessageBox.Show($"Bienvenido {usuario.Rol}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    switch (usuario.Rol.ToLower())
+                    if (usuario != null)
                     {
-                        case "admin":
-                            new AdminDashboard().Show();
-                            break;
-                        case "agente":
-                            new AgentDashboard(usuario.UsuarioID).Show();
-                            break;
-                        case "cliente":
-                            new ClienteDashboard().Show();
-                            break;
-                        default:
-                            lblError.Text = "Rol no reconocido.";
-                            return;
-                    }
+                        UserSession.UsuarioID = usuario.UsuarioID;
+                        UserSession.Rol = usuario.Rol;
+                        UserSession.AgenteID = usuario.AgenteID;
+                        UserSession.ClienteID = usuario.ClienteID;
 
-                    this.Hide();
+                        MessageBox.Show($"Bienvenido {usuario.Rol}", "Inicio de sesión exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        switch (usuario.Rol.ToLower())
+                        {
+                            case "admin":
+                                new AdminDashboard().Show();
+                                break;
+                            case "agente":
+                                new AgentDashboard(usuario.UsuarioID).Show();
+                                break;
+                            case "cliente":
+                                new ClienteDashboard().Show();
+                                break;
+                            default:
+                                lblError.Text = "Rol no reconocido.";
+                                return;
+                        }
+
+                        this.Hide();
+                    }
+                    else
+                    {
+                        lblError.Text = "Usuario o contraseña incorrectos.";
+                        txtPassword.Clear();
+                        txtPassword.Focus();
+                    }
                 }
-                else
-                {
-                    lblError.Text = "Usuario o contraseña incorrectos.";
-                    txtPassword.Clear();
-                    txtPassword.Focus();
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al iniciar sesión: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

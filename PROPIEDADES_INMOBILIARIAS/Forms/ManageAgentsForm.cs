@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using PROPIEDADES_INMOBILIARIAS.Models;
 using PROPIEDADES_INMOBILIARIAS.Repositories;
 
-
 namespace PROPIEDADES_INMOBILIARIAS.Forms
 {
     public partial class ManageAgentsForm : Form
@@ -45,10 +44,20 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 Telefono = txtTelefono.Text
             };
 
-            _agenteRepository.Add(agente);
-            MessageBox.Show("Agente guardado exitosamente.");
-            LimpiarCampos();
-            CargarAgentes();
+            try
+            {
+                _agenteRepository.Add(agente);
+                MessageBox.Show("Agente guardado exitosamente.");
+                LimpiarCampos();
+                CargarAgentes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar el agente: " + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
 
         private void btnActualizarAgente_Click(object sender, EventArgs e)
@@ -67,10 +76,20 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 Telefono = txtTelefono.Text
             };
 
-            _agenteRepository.Update(agente);
-            MessageBox.Show("Agente actualizado.");
-            LimpiarCampos();
-            CargarAgentes();
+            try
+            {
+                _agenteRepository.Update(agente);
+                MessageBox.Show("Agente actualizado.");
+                LimpiarCampos();
+                CargarAgentes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el agente: " + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
 
         private void btnEliminarAgente_Click(object sender, EventArgs e)
@@ -92,7 +111,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             }
             catch (SqlException ex)
             {
-                if (ex.Message.Contains("REFERENCE constraint") || ex.Number == 547) // 547 es código para violación de restricción FK
+                if (ex.Message.Contains("REFERENCE constraint") || ex.Number == 547)
                 {
                     MessageBox.Show("No se puede eliminar este agente porque tiene propiedades asignadas.\nDebe reasignar o eliminar esas propiedades primero.",
                                     "Eliminación no permitida",
@@ -107,12 +126,28 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                                     MessageBoxIcon.Error);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado al eliminar el agente: " + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
-
 
         private void ManageAgentsForm_Load(object sender, EventArgs e)
         {
-            CargarAgentes();
+            try
+            {
+                CargarAgentes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar agentes: " + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
 
         private void dgvAgentes_SelectionChanged(object sender, EventArgs e)
@@ -139,3 +174,4 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
         }
     }
 }
+
