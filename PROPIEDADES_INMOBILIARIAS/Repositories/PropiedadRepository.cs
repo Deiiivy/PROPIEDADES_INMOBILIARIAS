@@ -17,6 +17,21 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
             _transaction = transaction;
         }
 
+        private string ConvertirEstadoAString(EstadoPropiedad estado)
+        {
+            switch (estado)
+            {
+                case EstadoPropiedad.Disponible:
+                    return "Disponible";
+                case EstadoPropiedad.EnProcesoVenta:
+                    return "En proceso de venta"; // ¡Con espacios!
+                case EstadoPropiedad.Vendida:
+                    return "Vendida";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(estado));
+            }
+        }
+
         public void Add(Propiedad propiedad)
         {
             using (var cmd = new SqlCommand("SP_InsertarPropiedad", _connection, _transaction))
@@ -26,7 +41,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                 cmd.Parameters.AddWithValue("@Tipo", propiedad.Tipo.ToString());
                 cmd.Parameters.AddWithValue("@Superficie", propiedad.Superficie);
                 cmd.Parameters.AddWithValue("@Precio", propiedad.Precio);
-                cmd.Parameters.AddWithValue("@Estado", propiedad.Estado.ToString());
+                cmd.Parameters.AddWithValue("@Estado", ConvertirEstadoAString(propiedad.Estado));
                 cmd.Parameters.AddWithValue("@AgenteID", propiedad.AgenteID);
                 cmd.ExecuteNonQuery();
             }
@@ -42,7 +57,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Repositories
                 cmd.Parameters.AddWithValue("@Tipo", propiedad.Tipo.ToString());
                 cmd.Parameters.AddWithValue("@Superficie", propiedad.Superficie);
                 cmd.Parameters.AddWithValue("@Precio", propiedad.Precio);
-                cmd.Parameters.AddWithValue("@Estado", propiedad.Estado.ToString());
+                cmd.Parameters.AddWithValue("@Estado", ConvertirEstadoAString(propiedad.Estado));
                 cmd.Parameters.AddWithValue("@AgenteID", propiedad.AgenteID); 
 
                 cmd.ExecuteNonQuery();

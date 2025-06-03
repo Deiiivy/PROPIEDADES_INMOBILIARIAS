@@ -43,6 +43,31 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             }
         }
 
+        private string ObtenerZonaPorAgenteId()
+        {
+            if (!_agenteId.HasValue)
+                return "Sin Zona";
+
+            int ultimoDigito = _agenteId.Value % 10;
+
+            switch (ultimoDigito)
+            {
+                case 1:
+                    return "Sur";     // Carlos
+                case 2:
+                    return "Norte";   // Ana Gómez
+                case 3:
+                    return "Este";    // Juan Pérez
+                case 4:
+                    return "Oeste";
+                default:
+                    return "Sin Zona";
+            }
+        }
+
+
+
+
         private void CargarPropiedades()
         {
             try
@@ -51,6 +76,13 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
                 var lista = _agenteId.HasValue
                     ? _repo.GetByAgenteId(_agenteId.Value).ToList()
                     : _repo.GetAll().ToList();
+
+                // Asignar "Sur" a la zona si es Carlos
+                string zonaAgente = ObtenerZonaPorAgenteId();
+                foreach (var propiedad in lista)
+                {
+                    propiedad.Zona = zonaAgente;
+                }
 
                 dgvPropiedades.AutoGenerateColumns = true;
                 dgvPropiedades.DataSource = lista;
@@ -205,6 +237,11 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
             txtAgenteID.Clear();
             cmbTipo.SelectedIndex = -1;
             cmbEstado.SelectedIndex = -1;
+        }
+
+        private void ManagePropertiesForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

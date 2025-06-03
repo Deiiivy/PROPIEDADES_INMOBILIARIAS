@@ -23,7 +23,7 @@ namespace PROPIEDADES_INMOBILIARIAS.Forms
 
         private void AgentDashboard_Load(object sender, EventArgs e)
         {
-           
+            btnManageVisits.Visible = false;
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

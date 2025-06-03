@@ -214,6 +214,7 @@
             this.Controls.Add(this.lblDireccion);
             this.Name = "ManagePropertiesForm";
             this.Text = "ManagePropertiesForm";
+            this.Load += new System.EventHandler(this.ManagePropertiesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
