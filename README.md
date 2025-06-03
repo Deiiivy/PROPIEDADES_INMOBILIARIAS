@@ -14,23 +14,27 @@ La aplicación gestiona entidades clave como **Clientes, Agentes, Administradore
 - Interfaz Gráfica: **Windows Forms**
 - Base de Datos: **SQL Server**
 - ORM: No aplica, uso directo de ADO.NET
-- Patrones de diseño: `Repository`, `Singleton`, `Factory`
-- Principios SOLID aplicados: `OCP (Open/Closed Principle)`, `SRP (Single Responsibility Principle)`
+- Patrones de diseño: `Repository`, `Singleton`, `Unit OF work`
+- Principios SOLID aplicados: `OCP (Open/Closed Principle)`, `SRP (Single Responsibility Principle)`,  `Interface Segregation Principle (ISP) o Principio de Segregación de Interfaz`, `Dependency Inversion Principle (DIP) o Principio de Inversión de Dependencia.`.
 
 ---
 
 ## Capturas de pantalla iniciales
 - Login Form
-![image](https://github.com/user-attachments/assets/cb354d9a-b5f4-4806-8f39-101e1c747178)
+![image](https://github.com/user-attachments/assets/91e719d8-6d79-4fe2-bde6-fc4d05f155f9)
+
 
 - ClienteDashboard
-  ![image](https://github.com/user-attachments/assets/ac81cb20-684c-4124-bc9c-dfa4f463f08b)
+  ![image](https://github.com/user-attachments/assets/f2ca433f-ba82-42cd-bd7d-655ac8851e89)
+
 
 - AdminDashboard
-  ![image](https://github.com/user-attachments/assets/f1f8ffe0-bfcf-4fc4-9905-ba4681c869ed)
+  ![image](https://github.com/user-attachments/assets/efe144a0-6154-4328-9e6b-701c50d03c7f)
+
   
   --
-  ![image](https://github.com/user-attachments/assets/80e5c970-ee89-495c-902d-5ed4f15aba12)
+  ![image](https://github.com/user-attachments/assets/b71ba6ac-e4c2-4d71-9993-25dff18cc519)
+
 
 - AgenteDashboard
   ![image](https://github.com/user-attachments/assets/4b3ef959-a26d-4cd9-9182-d8707b753842)
@@ -44,27 +48,28 @@ La aplicación gestiona entidades clave como **Clientes, Agentes, Administradore
 ### 🔐 Formulario de Login con Control de Acceso por Roles
 
 - **Administrador**
-  - Correo: `admin_new@inmobiliaria.com`
-  - Contraseña: `admin123`
+  - Correo: `admin@inmobiliaria.com`
+  - Contraseña: `adminpass`
   - Funcionalidades:
     - Gestión de propiedades
     - Gestión de agentes
     - Gestión de clientes
+    - Gestión de visitas
     - CRUD completo para cada entidad
 
 - **Agente**
-  - Correo: `agente1_new@inmobiliaria.com`
-  - Contraseña: `agente123`
+  - Correo: `carlos.perez@inmobiliaria.com`
+  - Contraseña: `carlospass`
   - Funcionalidades:
-    - Ver propiedades asignadas
-    - Gestionar visitas
+    - Gestión de propiedades
 
 - **Cliente**
-  - Correo: `ana@mail.com`
-  - Contraseña: `cliente123`
+  - Correo: `juan.torres@example.com`
+  - Contraseña: `juanpass`
   - Funcionalidades:
-    - Visualizar propiedades disponibles
-
+    - Visualizar propiedades disponible
+    - marcar interes en alguna propiedad
+    - ver visitas agendadas
 ---
 
 ## 🗂️ Diagrama Entidad-Relación
