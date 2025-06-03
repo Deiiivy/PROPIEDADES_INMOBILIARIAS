@@ -14,7 +14,7 @@ La aplicación gestiona entidades clave como **Clientes, Agentes, Administradore
 - Interfaz Gráfica: **Windows Forms**
 - Base de Datos: **SQL Server**
 - ORM: No aplica, uso directo de ADO.NET
-- Patrones de diseño: `Repository`, `Singleton`, `Unit OF work`
+- Patrones de diseño: `Repository`, `Singleton`, `Unit OF work`, `Factory`
 - Principios SOLID aplicados: `OCP (Open/Closed Principle)`, `SRP (Single Responsibility Principle)`,  `Interface Segregation Principle (ISP) o Principio de Segregación de Interfaz`, `Dependency Inversion Principle (DIP) o Principio de Inversión de Dependencia.`.
 
 ---
